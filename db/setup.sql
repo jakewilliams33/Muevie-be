@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS muevie;
+DROP DATABASE IF EXISTS muevie_test;
+
+CREATE DATABASE muevie;
+CREATE DATABASE muevie_test;
