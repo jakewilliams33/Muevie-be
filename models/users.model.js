@@ -158,7 +158,8 @@ exports.selectActivityById = async (user_id) => {
 
   const post_likes = (
     await db.query(
-      `SELECT * FROM post_likes WHERE user_id=$1
+      `SELECT * FROM post_likes LEFT JOIN posts ON post_likes.post = posts.post_id 
+       WHERE post_likes.user_id=$1
       `,
       [user_id]
     )
