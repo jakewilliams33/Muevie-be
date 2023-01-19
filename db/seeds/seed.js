@@ -51,6 +51,8 @@ const seed = async ({
     imdb_id VARCHAR,
     rating INT,
     created_at TIMESTAMP DEFAULT NOW(),
+    movie_poster VARCHAR,
+    movie_title VARCHAR,
     type VARCHAR DEFAULT 'rating'
     );`);
 
@@ -138,12 +140,16 @@ const seed = async ({
   );
 
   const ratingQueryStr = format(
-    "INSERT INTO ratings ( user_id, imdb_id, rating) VALUES %L RETURNING *;",
-    ratingsData.map(({ user_id, imdb_id, rating }) => [
-      user_id,
-      imdb_id,
-      rating,
-    ])
+    "INSERT INTO ratings ( user_id, imdb_id, rating, movie_title, movie_poster) VALUES %L RETURNING *;",
+    ratingsData.map(
+      ({ user_id, imdb_id, rating, movie_title, movie_poster }) => [
+        user_id,
+        imdb_id,
+        rating,
+        movie_title,
+        movie_poster,
+      ]
+    )
   );
 
   const favouriteQueryStr = format(

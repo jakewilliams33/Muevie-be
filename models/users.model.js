@@ -159,7 +159,8 @@ exports.selectActivityById = async (user_id) => {
 
   const post_likes = (
     await db.query(
-      `SELECT * FROM post_likes LEFT JOIN posts ON post_likes.post = posts.post_id 
+      `SELECT like_id, post_likes.user_id, post, post_likes.created_at, post_likes.type, author, movie_title, released, movie_poster, body
+      FROM post_likes LEFT JOIN posts ON post_likes.post = posts.post_id 
        WHERE post_likes.user_id=$1
       `,
       [user_id]
@@ -168,7 +169,12 @@ exports.selectActivityById = async (user_id) => {
 
   const comments = (
     await db.query(
-      `SELECT * FROM comments WHERE user_id=$1
+      `SELECT 
+      comments.author AS comment_author,
+      posts.author AS post_author,
+      comment_id, comments.user_id, post, comments.created_at, comments.type, movie_title, released, movie_poster, comments.body
+      FROM comments LEFT JOIN posts ON comments.post = posts.post_id 
+       WHERE comments.user_id=$1
       `,
       [user_id]
     )
@@ -176,7 +182,8 @@ exports.selectActivityById = async (user_id) => {
 
   const ratings = (
     await db.query(
-      `SELECT * FROM ratings WHERE user_id=$1
+      `SELECT * FROM ratings
+      WHERE user_id=$1
       `,
       [user_id]
     )

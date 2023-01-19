@@ -12,12 +12,18 @@ exports.selectRatingsById = async (imdb_id) => {
   return parseFloat(result);
 };
 
-exports.insertRatingById = async (imdb_id, user_id, rating) => {
+exports.insertRatingById = async (
+  imdb_id,
+  user_id,
+  rating,
+  movie_title,
+  movie_poster
+) => {
   const {
     rows: [row],
   } = await db.query(
-    `INSERT INTO ratings (imdb_id, user_id, rating) VALUES ($1, $2, $3) RETURNING *;`,
-    [imdb_id, user_id, rating]
+    `INSERT INTO ratings (imdb_id, user_id, rating, movie_title, movie_poster) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+    [imdb_id, user_id, rating, movie_title, movie_poster]
   );
 
   return row;

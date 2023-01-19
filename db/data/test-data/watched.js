@@ -27,10 +27,17 @@ module.exports = [
       "https://m.media-amazon.com/images/M/MV5BMTI1Nzg0MDUxMl5BMl5BanBnXkFtZTcwMDIyMzgxMQ@@._V1_SX300.jpg",
   },
   {
-    user_id: 4,
+    user_id: 3,
     imdb_id: "tt0109245",
     movie_title: "The Best of Friends",
     movie_poster:
       "https://m.media-amazon.com/images/M/MV5BMTI1Nzg0MDUxMl5BMl5BanBnXkFtZTcwMDIyMzgxMQ@@._V1_SX300.jpg",
+  },
+  {
+    user_id: 3,
+    imdb_id: "tt0109547",
+    movie_title: "Natural Selection",
+    movie_poster:
+      "https://m.media-amazon.com/images/M/MV5BMTkzMjM4NTg2OV5BMl5BanBnXkFtZTcwMzYyNjYxMQ@@._V1_SX300.jpg",
   },
 ];

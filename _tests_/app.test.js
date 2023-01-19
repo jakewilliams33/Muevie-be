@@ -1096,7 +1096,12 @@ describe("Ratings", () => {
       test("201: adds rating and returns new rating object", () => {
         return request(app)
           .post("/api/users/2/ratings/tt0080684")
-          .send({ rating: 5 })
+          .send({
+            rating: 5,
+            movie_title: "Star Wars: Episode V - The Empire Strikes Back",
+            movie_poster:
+              "https://m.media-amazon.com/images/M/MV5BYmU1NDRjNDgtMzhiMi00NjZmLTg5NGItZDNiZjU5NTU4OTE0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+          })
           .expect(201)
           .then((res) => {
             expect(res.body.rating).toEqual({
@@ -1106,6 +1111,9 @@ describe("Ratings", () => {
               rating_id: expect.any(Number),
               created_at: expect.any(String),
               type: "rating",
+              movie_title: "Star Wars: Episode V - The Empire Strikes Back",
+              movie_poster:
+                "https://m.media-amazon.com/images/M/MV5BYmU1NDRjNDgtMzhiMi00NjZmLTg5NGItZDNiZjU5NTU4OTE0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
             });
           });
       });
@@ -1131,6 +1139,9 @@ describe("Ratings", () => {
               rating_id: expect.any(Number),
               created_at: expect.any(String),
               type: "rating",
+              movie_title: "You Were Never Really Here",
+              movie_poster:
+                "https://m.media-amazon.com/images/M/MV5BMDkwOTE0ZjMtZmRiYS00M2M3LWE3MzUtNzNmNmExNTNmNjg5XkEyXkFqcGdeQXVyODE1MjMyNzI@._V1_SX300.jpg",
             });
           });
       });
@@ -1198,7 +1209,22 @@ describe("Activity", () => {
           .get("/api/users/3/activity")
           .expect(200)
           .then((res) => {
-            expect(res.body.activity.length).toBe(9);
+            expect(res.body.activity.length).toBe(11);
+            expect(res.body.activity).toEqual(
+              expect.arrayContaining([
+                expect.objectContaining({ type: "post_like" }),
+                expect.objectContaining({ type: "post_like" }),
+                expect.objectContaining({ type: "post_like" }),
+                expect.objectContaining({ type: "post_like" }),
+                expect.objectContaining({ type: "comment" }),
+                expect.objectContaining({ type: "rating" }),
+                expect.objectContaining({ type: "rating" }),
+                expect.objectContaining({ type: "post" }),
+                expect.objectContaining({ type: "post" }),
+                expect.objectContaining({ type: "watched" }),
+                expect.objectContaining({ type: "watched" }),
+              ])
+            );
           });
       });
     });

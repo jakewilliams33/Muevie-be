@@ -1,72 +1,72 @@
 module.exports = [
   {
     post: 1,
-    genre: "Crime",
+    genre: "crime",
   },
   {
     post: 1,
-    genre: "Drama",
+    genre: "drama",
   },
   {
     post: 2,
-    genre: "Adventure",
+    genre: "adventure",
   },
   {
     post: 2,
-    genre: "Comedy",
+    genre: "comedy",
   },
   {
     post: 2,
-    genre: "Family",
+    genre: "family",
   },
   {
     post: 3,
-    genre: "Adventure",
+    genre: "adventure",
   },
   {
     post: 3,
-    genre: "Comedy",
+    genre: "comedy",
   },
   {
     post: 3,
-    genre: "Family",
+    genre: "family",
   },
 
   {
     post: 4,
-    genre: "Horror",
+    genre: "horror",
   },
   {
     post: 4,
-    genre: "Sci-Fi",
+    genre: "sci-fi",
   },
   {
     post: 5,
-    genre: "Adventure",
+    genre: "adventure",
   },
   {
     post: 5,
-    genre: "Action",
+    genre: "action",
   },
   {
     post: 6,
-    genre: "Adventure",
+    genre: "adventure",
   },
   {
     post: 6,
-    genre: "Action",
+    genre: "action",
   },
 
   {
     post: 7,
-    genre: "Crime",
+    genre: "crime",
   },
   {
     post: 7,
-    genre: "Action",
+    genre: "action",
   },
   {
     post: 7,
-    genre: "Drama",
+    genre: "drama",
   },
 ];

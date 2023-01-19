@@ -15,11 +15,13 @@ exports.getRatingsById = (req, res) => {
 
 exports.addRatingById = (req, res) => {
   const { imdb_id, user_id } = req.params;
-  const { rating } = req.body;
+  const { rating, movie_title, movie_poster } = req.body;
 
-  insertRatingById(imdb_id, user_id, rating).then((rating) => {
-    res.status(201).send({ rating });
-  });
+  insertRatingById(imdb_id, user_id, rating, movie_title, movie_poster).then(
+    (rating) => {
+      res.status(201).send({ rating });
+    }
+  );
 };
 
 exports.deleteRatingById = (req, res) => {
