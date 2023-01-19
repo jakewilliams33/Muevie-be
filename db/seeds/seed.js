@@ -41,7 +41,8 @@ const seed = async ({
     imdb_id VARCHAR,
     released VARCHAR,
     movie_poster VARCHAR,
-    body VARCHAR
+    body VARCHAR,
+    type VARCHAR DEFAULT 'post'
     );`);
 
   await db.query(`CREATE TABLE ratings (

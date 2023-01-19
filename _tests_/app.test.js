@@ -341,6 +341,7 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
+                type: "post",
               });
             });
           });
@@ -373,6 +374,7 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
+                type: "post",
               });
             });
           });
@@ -398,6 +400,7 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
+                type: "post",
               });
             });
           });
