@@ -134,6 +134,7 @@ exports.selectActivityById = async (user_id) => {
   AS likes,
   COALESCE(comment_count, 0) 
   AS comment_count,
+  type,
   author, created_at, user_id, movie_title, imdb_id, released, movie_poster, body, post_id
   FROM
   (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a

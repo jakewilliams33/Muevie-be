@@ -341,7 +341,6 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
-                type: "post",
               });
             });
           });
@@ -374,7 +373,6 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
-                type: "post",
               });
             });
           });
@@ -400,7 +398,6 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
-                type: "post",
               });
             });
           });
@@ -641,6 +638,7 @@ describe("Watched", () => {
                 movie_poster: expect.any(String),
                 movie_title: expect.any(String),
                 created_at: expect.any(String),
+                type: "watched",
               });
             });
           });
@@ -666,6 +664,7 @@ describe("Watched", () => {
               movie_poster: "N/A",
               movie_title: "Watever",
               created_at: expect.any(String),
+              type: "watched",
             });
           });
       });
@@ -720,6 +719,7 @@ describe("Comments", () => {
                 user_id: expect.any(Number),
                 author: expect.any(String),
                 created_at: expect.any(String),
+                type: "comment",
               });
             });
           });
@@ -744,6 +744,7 @@ describe("Comments", () => {
               user_id: expect.any(Number),
               author: expect.any(String),
               created_at: expect.any(String),
+              type: "comment",
             });
           });
       });
@@ -765,6 +766,7 @@ describe("Comments", () => {
               author: "KeanuIsTheBest",
               body: "this is an update",
               created_at: expect.any(String),
+              type: "comment",
             });
           });
       });
@@ -1102,6 +1104,7 @@ describe("Ratings", () => {
               rating: 5,
               rating_id: expect.any(Number),
               created_at: expect.any(String),
+              type: "rating",
             });
           });
       });
@@ -1126,6 +1129,7 @@ describe("Ratings", () => {
               rating: 2,
               rating_id: expect.any(Number),
               created_at: expect.any(String),
+              type: "rating",
             });
           });
       });

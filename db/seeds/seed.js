@@ -50,7 +50,8 @@ const seed = async ({
     user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
     imdb_id VARCHAR,
     rating INT,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    type VARCHAR DEFAULT 'rating'
     );`);
 
   await db.query(`CREATE TABLE favourites (
@@ -68,7 +69,9 @@ const seed = async ({
     imdb_id VARCHAR,
     movie_poster VARCHAR,
     movie_title VARCHAR,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    type VARCHAR DEFAULT 'watched'
+
     );`);
 
   await db.query(`CREATE TABLE comments (
@@ -77,7 +80,8 @@ const seed = async ({
         post INT NOT NULL REFERENCES posts(post_id) ON DELETE CASCADE,
         author VARCHAR REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE,
         body VARCHAR NOT NULL,
-        created_at TIMESTAMP DEFAULT NOW()
+        created_at TIMESTAMP DEFAULT NOW(),
+        type VARCHAR DEFAULT 'comment'
         );`);
 
   await db.query(`CREATE TABLE post_likes (
