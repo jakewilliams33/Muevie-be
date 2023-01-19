@@ -1010,6 +1010,7 @@ describe("Post likes", () => {
               user_id: 1,
               created_at: expect.any(String),
               like_id: expect.any(Number),
+              type: "post_like",
             });
           });
       });

@@ -85,7 +85,6 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
   `,
     [limit, page]
   );
-
   return rows;
 };
 
@@ -139,7 +138,7 @@ exports.selectPostById = async (post_id) => {
      (SELECT * FROM posts WHERE post_id=$1) a
      LEFT JOIN (SELECT post, count(post)::int AS likes FROM post_likes WHERE post=$1 GROUP BY post) b
      ON a.post_id = b.post
-     FULL OUTER JOIN (SELECT post, count(post)::int AS comment_count FROM comments GROUP BY post) c
+     LEFT JOIN (SELECT post, count(post)::int AS comment_count FROM comments GROUP BY post) c
      ON a.post_id = c.post
   `,
     [post_id]

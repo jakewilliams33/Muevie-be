@@ -88,7 +88,8 @@ const seed = async ({
         like_id SERIAL,
         user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
         post INT NOT NULL REFERENCES posts(post_id) ON DELETE CASCADE,
-        created_at TIMESTAMP DEFAULT NOW()
+        created_at TIMESTAMP DEFAULT NOW(),
+        type VARCHAR DEFAULT 'post_like'
         );`);
 
   await db.query(`CREATE TABLE followers (
