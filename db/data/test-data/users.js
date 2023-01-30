@@ -44,7 +44,7 @@ module.exports = [
     name: "ozzy oblong",
     email: "ozzy123@live.com",
     profile_pic:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+      "https://i.pinimg.com/originals/e3/19/01/e319014cc2aa22cfd18f97314de1b69e.jpg",
     hash: "$2b$10$oYc.lDaEZAHMFu416MC36OhXwhVeYB23O5LXBP/BIU5ss8ifZE9e6",
   },
 ];

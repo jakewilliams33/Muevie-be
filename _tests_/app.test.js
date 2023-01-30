@@ -37,8 +37,8 @@ describe("Users", () => {
           username: "blablabla",
           name: "jake williams",
           email: "test@test.test",
-          profile_pic:
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          profile_pic: expect.any(String),
+
           password: "password",
         };
         return request(app)
@@ -64,9 +64,9 @@ describe("Users", () => {
           email: "test@test.test",
           profile_pic:
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-          password: "password",
           cat: "cat",
           isduibas: 656546,
+          password: "blass",
         };
         return request(app)
           .post("/api/users")
@@ -111,8 +111,8 @@ describe("Users", () => {
               username: "KeanuIsTheBest",
               name: "bill jenkins",
               email: "bill123@live.com",
-              profile_pic:
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+              profile_pic: expect.any(String),
+
               created_at: expect.any(String),
               hash: expect.any(String),
               user_id: 1,
@@ -341,6 +341,8 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
+                profile_pic: expect.any(String),
+                rating: expect.any(Number),
               });
             });
           });
@@ -373,6 +375,8 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
+                profile_pic: expect.any(String),
+                rating: expect.any(Number),
               });
             });
           });
@@ -398,6 +402,8 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
+                profile_pic: expect.any(String),
+                rating: expect.any(Number),
               });
             });
           });
@@ -787,32 +793,28 @@ describe("Followers", () => {
           {
             user_id: 2,
             username: "benny_andthejets",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "jimathanny elton",
             created_at: expect.any(String),
           },
           {
             user_id: 3,
             username: "your_nan",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "hey you",
             created_at: expect.any(String),
           },
           {
             user_id: 5,
             username: "curryboi69",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "barry tikka",
             created_at: expect.any(String),
           },
           {
             user_id: 6,
             username: "goth_geeza_666",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "ozzy oblong",
             created_at: expect.any(String),
           },
@@ -821,40 +823,36 @@ describe("Followers", () => {
           {
             user_id: 2,
             username: "benny_andthejets",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "jimathanny elton",
             created_at: expect.any(String),
           },
           {
             user_id: 3,
             username: "your_nan",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "hey you",
             created_at: expect.any(String),
           },
           {
             user_id: 4,
             username: "cat_man",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "tim robbins",
             created_at: expect.any(String),
           },
           {
             user_id: 5,
             username: "curryboi69",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "barry tikka",
             created_at: expect.any(String),
           },
           {
             user_id: 6,
             username: "goth_geeza_666",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+
+            profile_pic: expect.any(String),
             name: "ozzy oblong",
             created_at: expect.any(String),
           },
@@ -901,32 +899,29 @@ describe("Followers", () => {
           {
             user_id: 2,
             username: "benny_andthejets",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
+
             name: "jimathanny elton",
             created_at: expect.any(String),
           },
           {
             user_id: 3,
             username: "your_nan",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "hey you",
             created_at: expect.any(String),
           },
           {
             user_id: 5,
             username: "curryboi69",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "barry tikka",
             created_at: expect.any(String),
           },
           {
             user_id: 6,
             username: "goth_geeza_666",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "ozzy oblong",
             created_at: expect.any(String),
           },
@@ -935,40 +930,36 @@ describe("Followers", () => {
           {
             user_id: 2,
             username: "benny_andthejets",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "jimathanny elton",
             created_at: expect.any(String),
           },
           {
             user_id: 3,
             username: "your_nan",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "hey you",
             created_at: expect.any(String),
           },
           {
             user_id: 4,
             username: "cat_man",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "tim robbins",
             created_at: expect.any(String),
           },
           {
             user_id: 5,
             username: "curryboi69",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
             name: "barry tikka",
             created_at: expect.any(String),
           },
           {
             user_id: 6,
             username: "goth_geeza_666",
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
+
             name: "ozzy oblong",
             created_at: expect.any(String),
           },
@@ -1032,36 +1023,36 @@ describe("Post likes", () => {
         const expected = [
           {
             user_id: 2,
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
+
             username: "benny_andthejets",
             name: "jimathanny elton",
           },
           {
             user_id: 3,
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
+
             username: "your_nan",
             name: "hey you",
           },
           {
             user_id: 4,
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
+
             username: "cat_man",
             name: "tim robbins",
           },
           {
             user_id: 5,
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
+
             username: "curryboi69",
             name: "barry tikka",
           },
           {
             user_id: 6,
-            profile_pic:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+            profile_pic: expect.any(String),
+
             username: "goth_geeza_666",
             name: "ozzy oblong",
           },

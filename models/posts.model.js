@@ -47,8 +47,8 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
 
   const filterByGenre = genre
     ? format(
-        `RIGHT JOIN (SELECT * FROM genres WHERE genre='%I') e
-  ON b.post_id = e.post`,
+        `RIGHT JOIN (SELECT * FROM genres WHERE genre='%I') g
+  ON b.post_id = g.post`,
         genre
       )
     : ``;
@@ -58,7 +58,7 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
         `FULL OUTER JOIN (SELECT following FROM followers WHERE user_id=%L) c
   ON b.user_id = c.following
   WHERE following IS NOT NULL
-  OR user_id=%L`,
+  OR b.user_id=%L`,
         user_id,
         user_id
       )
@@ -70,13 +70,19 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
   AS likes,
   COALESCE(comment_count, 0) 
   AS comment_count,
-  author, created_at, user_id, movie_title, imdb_id, released, movie_poster, body, post_id
+  profile_pic, rating,
+  author, created_at, b.user_id, movie_title, b.imdb_id, released, movie_poster, body, post_id
   FROM
   (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a
   FULL OUTER JOIN (SELECT * FROM posts) b
   ON a.post = b.post_id 
   FULL OUTER JOIN (SELECT post, count(post)::int AS comment_count FROM comments GROUP BY post) d
   ON b.post_id = d.post
+  LEFT JOIN (SELECT user_id, profile_pic FROM users) e
+  ON b.user_id = e.user_id
+  LEFT JOIN (SELECT user_id, imdb_id, rating FROM ratings) f
+  ON b.user_id = f.user_id
+  AND b.imdb_id = f.imdb_id
   ${filterByFollowers}
   ${filterByGenre}
   ORDER BY released DESC
@@ -85,6 +91,7 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
   `,
     [limit, page]
   );
+
   return rows;
 };
 
