@@ -1200,7 +1200,7 @@ describe("Activity", () => {
           .get("/api/users/3/activity")
           .expect(200)
           .then((res) => {
-            expect(res.body.activity.length).toBe(11);
+            expect(res.body.activity.length).toBe(9);
             expect(res.body.activity).toEqual(
               expect.arrayContaining([
                 expect.objectContaining({ type: "post_like" }),
@@ -1210,8 +1210,6 @@ describe("Activity", () => {
                 expect.objectContaining({ type: "comment" }),
                 expect.objectContaining({ type: "rating" }),
                 expect.objectContaining({ type: "rating" }),
-                expect.objectContaining({ type: "post" }),
-                expect.objectContaining({ type: "post" }),
                 expect.objectContaining({ type: "watched" }),
                 expect.objectContaining({ type: "watched" }),
               ])

@@ -126,29 +126,6 @@ exports.selectPostsByUserId = async (user_id) => {
 };
 
 exports.selectActivityById = async (user_id) => {
-  const posts = (
-    await db.query(
-      `
-  select * from
-  (SELECT COALESCE(likes, 0) 
-  AS likes,
-  COALESCE(comment_count, 0) 
-  AS comment_count,
-  type,
-  author, created_at, user_id, movie_title, imdb_id, released, movie_poster, body, post_id
-  FROM
-  (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a
-  FULL OUTER JOIN (SELECT * FROM posts) b
-  ON a.post = b.post_id 
-  FULL OUTER JOIN (SELECT post, count(post)::int AS comment_count FROM comments GROUP BY post) d
-  ON b.post_id = d.post
-  WHERE user_id=$1
-  ORDER BY created_at DESC) posts
-  `,
-      [user_id]
-    )
-  ).rows;
-
   const watched = (
     await db.query(
       `SELECT * FROM watched WHERE user_id=$1
@@ -189,15 +166,11 @@ exports.selectActivityById = async (user_id) => {
     )
   ).rows;
 
-  result = posts
-    .concat(watched)
-    .concat(post_likes)
-    .concat(comments)
-    .concat(ratings);
+  result = watched.concat(post_likes).concat(comments).concat(ratings);
 
   result.sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
 
-  if (!posts && !watched && !post_likes && !comments && !ratings)
+  if (!watched && !post_likes && !comments && !ratings)
     result = [{ msg: "No activity yet!" }];
 
   return result;
