@@ -1,43 +1,38 @@
 module.exports = [
   {
     user_id: 1,
-    imdb_id: "tt5742374",
+    movie_id: "398181",
     movie_title: "You Were Never Really Here",
-    movie_poster:
-      "https://m.media-amazon.com/images/M/MV5BMDkwOTE0ZjMtZmRiYS00M2M3LWE3MzUtNzNmNmExNTNmNjg5XkEyXkFqcGdeQXVyODE1MjMyNzI@._V1_SX300.jpg",
+    movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
   },
   {
     user_id: 1,
-    imdb_id: "tt01095039",
-    movie_title: "What's Yours...",
-    movie_poster: "N/A",
+    movie_id: "11324",
+    movie_title: "Shutter Island",
+    movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
   },
   {
     user_id: 6,
-    imdb_id: "tt0109547",
+    movie_id: "276692",
     movie_title: "Natural Selection",
-    movie_poster:
-      "https://m.media-amazon.com/images/M/MV5BMTkzMjM4NTg2OV5BMl5BanBnXkFtZTcwMzYyNjYxMQ@@._V1_SX300.jpg",
+    movie_poster: "/kmK64pGj3qJov5PHzA5wlcy1KNG.jpg",
   },
   {
     user_id: 4,
-    imdb_id: "tt0109245",
+    movie_id: "247532",
     movie_title: "The Best of Friends",
-    movie_poster:
-      "https://m.media-amazon.com/images/M/MV5BMTI1Nzg0MDUxMl5BMl5BanBnXkFtZTcwMDIyMzgxMQ@@._V1_SX300.jpg",
+    movie_poster: "/xZHTPtCtGpLP5TWjIACpswci2TR.jpg",
   },
   {
     user_id: 3,
-    imdb_id: "tt0109245",
+    movie_id: "247532",
     movie_title: "The Best of Friends",
-    movie_poster:
-      "https://m.media-amazon.com/images/M/MV5BMTI1Nzg0MDUxMl5BMl5BanBnXkFtZTcwMDIyMzgxMQ@@._V1_SX300.jpg",
+    movie_poster: "/xZHTPtCtGpLP5TWjIACpswci2TR.jpg",
   },
   {
     user_id: 3,
-    imdb_id: "tt0109547",
+    movie_id: "276692",
     movie_title: "Natural Selection",
-    movie_poster:
-      "https://m.media-amazon.com/images/M/MV5BMTkzMjM4NTg2OV5BMl5BanBnXkFtZTcwMzYyNjYxMQ@@._V1_SX300.jpg",
+    movie_poster: "/kmK64pGj3qJov5PHzA5wlcy1KNG.jpg",
   },
 ];

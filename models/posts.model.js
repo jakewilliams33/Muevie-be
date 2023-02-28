@@ -71,7 +71,7 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
   COALESCE(comment_count, 0) 
   AS comment_count,
   profile_pic, rating,
-  author, created_at, b.user_id, movie_title, b.imdb_id, released, movie_poster, body, post_id
+  author, created_at, b.user_id, movie_title, b.movie_id, released, movie_poster, body, post_id
   FROM
   (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a
   FULL OUTER JOIN (SELECT * FROM posts) b
@@ -80,9 +80,9 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
   ON b.post_id = d.post
   LEFT JOIN (SELECT user_id, profile_pic FROM users) e
   ON b.user_id = e.user_id
-  LEFT JOIN (SELECT user_id, imdb_id, rating FROM ratings) f
+  LEFT JOIN (SELECT user_id, movie_id, rating FROM ratings) f
   ON b.user_id = f.user_id
-  AND b.imdb_id = f.imdb_id
+  AND b.movie_id = f.movie_id
   ${filterByFollowers}
   ${filterByGenre}
   ORDER BY released DESC
@@ -99,20 +99,20 @@ exports.insertPost = async ({
   author,
   user_id,
   movie_title,
-  imdb_id,
+  movie_id,
   movie_poster,
   body,
   released,
 }) => {
-  if (!author || !user_id || !movie_title || !body || !imdb_id) {
+  if (!author || !user_id || !movie_title || !body || !movie_id) {
     return Promise.reject({ status: 400, msg: "missing required fields" });
   }
 
   const {
     rows: [row],
   } = await db.query(
-    "INSERT INTO posts (author, user_id, movie_title, imdb_id, released, movie_poster, body) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;",
-    [author, user_id, movie_title, imdb_id, released, movie_poster, body]
+    "INSERT INTO posts (author, user_id, movie_title, movie_id, released, movie_poster, body) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;",
+    [author, user_id, movie_title, movie_id, released, movie_poster, body]
   );
 
   row.likes = 0;
@@ -141,7 +141,7 @@ exports.selectPostById = async (post_id) => {
     `SELECT COALESCE(likes, 0) AS likes,
      COALESCE(comment_count, 0) 
      AS comment_count,
-     author, created_at, user_id, movie_title, imdb_id, released, movie_poster, body, post_id FROM 
+     author, created_at, user_id, movie_title, movie_id, released, movie_poster, body, post_id FROM 
      (SELECT * FROM posts WHERE post_id=$1) a
      LEFT JOIN (SELECT post, count(post)::int AS likes FROM post_likes WHERE post=$1 GROUP BY post) b
      ON a.post_id = b.post
@@ -180,24 +180,24 @@ exports.updatePostById = async (body, post_id) => {
   return row;
 };
 
-exports.selectPostsByImdbId = async (imdb_id) => {
+exports.selectPostsByImdbId = async (movie_id) => {
   const { rows } = await db.query(
     `
   SELECT COALESCE(likes, 0) 
   AS likes,
   COALESCE(comment_count, 0) 
   AS comment_count,
-  author, created_at, user_id, movie_title, imdb_id, released, movie_poster, body, post_id
+  author, created_at, user_id, movie_title, movie_id, released, movie_poster, body, post_id
   FROM
   (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a
   FULL OUTER JOIN (SELECT * FROM posts) b
   ON a.post = b.post_id 
   FULL OUTER JOIN (SELECT post, count(post)::int AS comment_count FROM comments GROUP BY post) d
   ON b.post_id = d.post
-  WHERE imdb_id=$1
+  WHERE movie_id=$1
   ORDER BY created_at DESC
   `,
-    [imdb_id]
+    [movie_id]
   );
 
   return rows;

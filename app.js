@@ -106,12 +106,12 @@ app.delete("/api/post_likes", deletePostLike);
 app.get("/api/users/:user_id/posts", getPostsByUserId);
 
 app.get("/api/posts/:post_id/post_likes", getLikesByPostId);
-app.get("/api/:imdb_id/posts", getPostsByImdbId);
+app.get("/api/:movie_id/posts", getPostsByImdbId);
 
-app.get("/api/ratings/:imdb_id", getRatingsById);
-app.post("/api/users/:user_id/ratings/:imdb_id", addRatingById);
-app.delete("/api/users/:user_id/ratings/:imdb_id", deleteRatingById);
-app.patch("/api/users/:user_id/ratings/:imdb_id", patchRatingById);
+app.get("/api/ratings/:movie_id", getRatingsById);
+app.post("/api/users/:user_id/ratings/:movie_id", addRatingById);
+app.delete("/api/users/:user_id/ratings/:movie_id", deleteRatingById);
+app.patch("/api/users/:user_id/ratings/:movie_id", patchRatingById);
 
 app.get("/api/posts/:post_id/genres", getGenresById);
 app.post("/api/posts/:post_id/genres", addGenresById);

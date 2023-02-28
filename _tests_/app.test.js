@@ -206,8 +206,8 @@ describe("Favourites", () => {
     describe("POST", () => {
       test("201: adds a new favourite", () => {
         const newFav = {
-          imdb_id: "tt0109248",
-          movie_poster: "N/A",
+          movie_id: "tt0109248",
+          movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
           movie_title: "Watever",
         };
         return request(app)
@@ -216,10 +216,10 @@ describe("Favourites", () => {
           .expect(201)
           .then((res) => {
             expect(res.body.favourite).toEqual({
-              imdb_id: "tt0109248",
+              movie_id: "tt0109248",
               user_id: 2,
               favourite_id: expect.any(Number),
-              movie_poster: "N/A",
+              movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
               movie_title: "Watever",
               created_at: expect.any(String),
             });
@@ -228,7 +228,7 @@ describe("Favourites", () => {
       test("400: error message when missing info", () => {
         return request(app)
           .post("/api/users/2/favourites")
-          .send({ movie_poster: "N/A", movie_title: "Watever" })
+          .send({ movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg", movie_title: "Watever" })
           .expect(400)
           .then((res) => {
             expect(res.body.msg).toBe("missing required fields");
@@ -236,8 +236,8 @@ describe("Favourites", () => {
       });
       test("404: error when user does not exist", () => {
         const newFav = {
-          imdb_id: "tt0109248",
-          movie_poster: "N/A",
+          movie_id: "tt0109248",
+          movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
           movie_title: "Watever",
         };
         return request(app)
@@ -257,7 +257,7 @@ describe("Favourites", () => {
           .then((res) => {
             res.body.favourites.forEach((fav) => {
               expect(fav).toEqual({
-                imdb_id: expect.any(String),
+                movie_id: expect.any(String),
                 user_id: 1,
                 favourite_id: expect.any(Number),
                 movie_poster: expect.any(String),
@@ -334,7 +334,7 @@ describe("Posts", () => {
                 body: expect.any(String),
                 movie_title: expect.any(String),
                 user_id: expect.any(Number),
-                imdb_id: expect.any(String),
+                movie_id: expect.any(String),
                 released: expect.any(String),
                 created_at: expect.any(String),
                 movie_poster: expect.any(String),
@@ -368,7 +368,7 @@ describe("Posts", () => {
                 body: expect.any(String),
                 movie_title: expect.any(String),
                 user_id: expect.any(Number),
-                imdb_id: expect.any(String),
+                movie_id: expect.any(String),
                 released: expect.any(String),
                 created_at: expect.any(String),
                 movie_poster: expect.any(String),
@@ -395,7 +395,7 @@ describe("Posts", () => {
                 body: expect.any(String),
                 movie_title: expect.any(String),
                 user_id: expect.any(Number),
-                imdb_id: expect.any(String),
+                movie_id: expect.any(String),
                 released: expect.any(String),
                 created_at: expect.any(String),
                 movie_poster: expect.any(String),
@@ -448,7 +448,7 @@ describe("Posts", () => {
           author: "cat_man",
           user_id: 4,
           movie_title: "Elf",
-          imdb_id: "tt0319343",
+          movie_id: "tt0319343",
           movie_poster:
             "https://m.media-amazon.com/images/M/MV5BMzUxNzkzMzQtYjIxZC00NzU0LThkYTQtZjNhNTljMTA1MDA1L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
           body: "the best film ever made",
@@ -458,7 +458,7 @@ describe("Posts", () => {
           author: "cat_man",
           user_id: 4324234,
           movie_title: "Elf",
-          imdb_id: "tt0319343",
+          movie_id: "tt0319343",
           movie_poster:
             "https://m.media-amazon.com/images/M/MV5BMzUxNzkzMzQtYjIxZC00NzU0LThkYTQtZjNhNTljMTA1MDA1L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
           body: "the best film ever made",
@@ -468,7 +468,7 @@ describe("Posts", () => {
           author: "cat_man",
           body: "the best film ever made",
           created_at: expect.any(String),
-          imdb_id: "tt0319343",
+          movie_id: "tt0319343",
           movie_poster:
             "https://m.media-amazon.com/images/M/MV5BMzUxNzkzMzQtYjIxZC00NzU0LThkYTQtZjNhNTljMTA1MDA1L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
           movie_title: "Elf",
@@ -519,10 +519,9 @@ describe("Posts", () => {
               author: "KeanuIsTheBest",
               user_id: 1,
               movie_title: "You Were Never Really Here",
-              imdb_id: "tt5742374",
+              movie_id: "398181",
               released: "06 Apr 2018",
-              movie_poster:
-                "https://m.media-amazon.com/images/M/MV5BMDkwOTE0ZjMtZmRiYS00M2M3LWE3MzUtNzNmNmExNTNmNjg5XkEyXkFqcGdeQXVyODE1MjMyNzI@._V1_SX300.jpg",
+              movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
               body: "very good, I cry.",
               comment_count: expect.any(Number),
               genres: ["crime", "drama"],
@@ -573,11 +572,11 @@ describe("Posts", () => {
     });
   });
 
-  describe("/api/:imdb_id/posts", () => {
+  describe("/api/:movie_id/posts", () => {
     describe("GET", () => {
       test("200: responds with all posts related to specified movie", () => {
         return request(app)
-          .get("/api/tt0116705/posts")
+          .get("/api/9279/posts")
           .expect(200)
           .then((res) => {
             res.body.posts.forEach((post) => {
@@ -586,7 +585,7 @@ describe("Posts", () => {
                 body: expect.any(String),
                 movie_title: expect.any(String),
                 user_id: expect.any(Number),
-                imdb_id: expect.any(String),
+                movie_id: expect.any(String),
                 released: expect.any(String),
                 created_at: expect.any(String),
                 movie_poster: expect.any(String),
@@ -613,7 +612,7 @@ describe("Posts", () => {
                 body: expect.any(String),
                 movie_title: expect.any(String),
                 user_id: 1,
-                imdb_id: expect.any(String),
+                movie_id: expect.any(String),
                 released: expect.any(String),
                 created_at: expect.any(String),
                 movie_poster: expect.any(String),
@@ -638,7 +637,7 @@ describe("Watched", () => {
           .then((res) => {
             res.body.watched.forEach((watched) => {
               expect(watched).toEqual({
-                imdb_id: expect.any(String),
+                movie_id: expect.any(String),
                 user_id: 1,
                 watched_id: expect.any(Number),
                 movie_poster: expect.any(String),
@@ -654,8 +653,8 @@ describe("Watched", () => {
     describe("POST", () => {
       test("201: adds a new watched movie", () => {
         const newFav = {
-          imdb_id: "tt0109248",
-          movie_poster: "N/A",
+          movie_id: "tt0109248",
+          movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
           movie_title: "Watever",
         };
         return request(app)
@@ -664,10 +663,10 @@ describe("Watched", () => {
           .expect(201)
           .then((res) => {
             expect(res.body.watched).toEqual({
-              imdb_id: "tt0109248",
+              movie_id: "tt0109248",
               user_id: 2,
               watched_id: expect.any(Number),
-              movie_poster: "N/A",
+              movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
               movie_title: "Watever",
               created_at: expect.any(String),
               type: "watched",
@@ -1069,11 +1068,11 @@ describe("Post likes", () => {
 });
 
 describe("Ratings", () => {
-  describe("/api/ratings/:imdb_id", () => {
+  describe("/api/ratings/:movie_id", () => {
     describe("GET", () => {
       test("200: returns average of all user ratings for specified movie", () => {
         return request(app)
-          .get("/api/ratings/tt0116705")
+          .get("/api/ratings/9279")
           .expect(200)
           .then((res) => {
             expect(res.body.rating).toBe(3.3);
@@ -1082,7 +1081,7 @@ describe("Ratings", () => {
     });
   });
 
-  describe("/api/users/:user_id/ratings/:imdb_id", () => {
+  describe("/api/users/:user_id/ratings/:movie_id", () => {
     describe("POST", () => {
       test("201: adds rating and returns new rating object", () => {
         return request(app)
@@ -1097,7 +1096,7 @@ describe("Ratings", () => {
           .then((res) => {
             expect(res.body.rating).toEqual({
               user_id: 2,
-              imdb_id: "tt0080684",
+              movie_id: "tt0080684",
               rating: 5,
               rating_id: expect.any(Number),
               created_at: expect.any(String),
@@ -1111,28 +1110,25 @@ describe("Ratings", () => {
     });
     describe("DELETE", () => {
       test("204: removes rating", () => {
-        return request(app)
-          .delete("/api/users/1/ratings/tt5742374")
-          .expect(204);
+        return request(app).delete("/api/users/1/ratings/398181").expect(204);
       });
     });
     describe("PATCH", () => {
       test("201: changes rating and returns updated rating", () => {
         return request(app)
-          .patch("/api/users/1/ratings/tt5742374")
+          .patch("/api/users/1/ratings/398181")
           .send({ rating: 2 })
           .expect(200)
           .then((res) => {
             expect(res.body.rating).toEqual({
               user_id: 1,
-              imdb_id: "tt5742374",
+              movie_id: "398181",
               rating: 2,
               rating_id: expect.any(Number),
               created_at: expect.any(String),
               type: "rating",
               movie_title: "You Were Never Really Here",
-              movie_poster:
-                "https://m.media-amazon.com/images/M/MV5BMDkwOTE0ZjMtZmRiYS00M2M3LWE3MzUtNzNmNmExNTNmNjg5XkEyXkFqcGdeQXVyODE1MjMyNzI@._V1_SX300.jpg",
+              movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
             });
           });
       });

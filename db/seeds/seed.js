@@ -38,7 +38,7 @@ const seed = async ({
     created_at TIMESTAMP DEFAULT NOW(),
     user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
     movie_title VARCHAR,
-    imdb_id VARCHAR,
+    movie_id VARCHAR,
     released VARCHAR,
     movie_poster VARCHAR,
     body VARCHAR,
@@ -48,7 +48,7 @@ const seed = async ({
   await db.query(`CREATE TABLE ratings (
     rating_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-    imdb_id VARCHAR,
+    movie_id VARCHAR,
     rating INT,
     created_at TIMESTAMP DEFAULT NOW(),
     movie_poster VARCHAR,
@@ -59,7 +59,7 @@ const seed = async ({
   await db.query(`CREATE TABLE favourites (
     favourite_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-    imdb_id VARCHAR,
+    movie_id VARCHAR,
     movie_poster VARCHAR,
     movie_title VARCHAR,
     created_at TIMESTAMP DEFAULT NOW()
@@ -68,7 +68,7 @@ const seed = async ({
   await db.query(`CREATE TABLE watched (
     watched_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-    imdb_id VARCHAR,
+    movie_id VARCHAR,
     movie_poster VARCHAR,
     movie_title VARCHAR,
     created_at TIMESTAMP DEFAULT NOW(),
@@ -117,13 +117,13 @@ const seed = async ({
   );
 
   const postQueryStr = format(
-    "INSERT INTO posts ( author, user_id, movie_title, imdb_id, released, movie_poster, body) VALUES %L RETURNING *;",
+    "INSERT INTO posts ( author, user_id, movie_title, movie_id, released, movie_poster, body) VALUES %L RETURNING *;",
     postsData.map(
       ({
         author,
         user_id,
         movie_title,
-        imdb_id,
+        movie_id,
         released,
         movie_poster,
         body,
@@ -131,7 +131,7 @@ const seed = async ({
         author,
         user_id,
         movie_title,
-        imdb_id,
+        movie_id,
         released,
         movie_poster,
         body,
@@ -140,11 +140,11 @@ const seed = async ({
   );
 
   const ratingQueryStr = format(
-    "INSERT INTO ratings ( user_id, imdb_id, rating, movie_title, movie_poster) VALUES %L RETURNING *;",
+    "INSERT INTO ratings ( user_id, movie_id, rating, movie_title, movie_poster) VALUES %L RETURNING *;",
     ratingsData.map(
-      ({ user_id, imdb_id, rating, movie_title, movie_poster }) => [
+      ({ user_id, movie_id, rating, movie_title, movie_poster }) => [
         user_id,
-        imdb_id,
+        movie_id,
         rating,
         movie_title,
         movie_poster,
@@ -153,20 +153,20 @@ const seed = async ({
   );
 
   const favouriteQueryStr = format(
-    "INSERT INTO favourites ( user_id, imdb_id, movie_poster, movie_title) VALUES %L RETURNING *;",
-    favouritesData.map(({ user_id, imdb_id, movie_poster, movie_title }) => [
+    "INSERT INTO favourites ( user_id, movie_id, movie_poster, movie_title) VALUES %L RETURNING *;",
+    favouritesData.map(({ user_id, movie_id, movie_poster, movie_title }) => [
       user_id,
-      imdb_id,
+      movie_id,
       movie_poster,
       movie_title,
     ])
   );
 
   const watchedQueryStr = format(
-    "INSERT INTO watched ( user_id, imdb_id, movie_poster, movie_title) VALUES %L RETURNING *;",
-    watchedData.map(({ user_id, imdb_id, movie_poster, movie_title }) => [
+    "INSERT INTO watched ( user_id, movie_id, movie_poster, movie_title) VALUES %L RETURNING *;",
+    watchedData.map(({ user_id, movie_id, movie_poster, movie_title }) => [
       user_id,
-      imdb_id,
+      movie_id,
       movie_poster,
       movie_title,
     ])

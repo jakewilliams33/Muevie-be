@@ -1,10 +1,10 @@
 const db = require("../db/connection");
 
-exports.selectRatingsById = async (imdb_id) => {
+exports.selectRatingsById = async (movie_id) => {
   const {
     rows: [row],
-  } = await db.query(`SELECT AVG(rating) FROM ratings WHERE imdb_id=$1`, [
-    imdb_id,
+  } = await db.query(`SELECT AVG(rating) FROM ratings WHERE movie_id=$1`, [
+    movie_id,
   ]);
 
   const result = parseFloat(row.avg).toFixed(1);
@@ -13,7 +13,7 @@ exports.selectRatingsById = async (imdb_id) => {
 };
 
 exports.insertRatingById = async (
-  imdb_id,
+  movie_id,
   user_id,
   rating,
   movie_title,
@@ -22,29 +22,29 @@ exports.insertRatingById = async (
   const {
     rows: [row],
   } = await db.query(
-    `INSERT INTO ratings (imdb_id, user_id, rating, movie_title, movie_poster) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
-    [imdb_id, user_id, rating, movie_title, movie_poster]
+    `INSERT INTO ratings (movie_id, user_id, rating, movie_title, movie_poster) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+    [movie_id, user_id, rating, movie_title, movie_poster]
   );
 
   return row;
 };
 
-exports.removeRatingById = async (imdb_id, user_id) => {
+exports.removeRatingById = async (movie_id, user_id) => {
   const {
     rows: [row],
   } = await db.query(
-    `DELETE FROM ratings WHERE imdb_id=$1 AND user_id=$2 RETURNING *;`,
-    [imdb_id, user_id]
+    `DELETE FROM ratings WHERE movie_id=$1 AND user_id=$2 RETURNING *;`,
+    [movie_id, user_id]
   );
   return row;
 };
 
-exports.updateRatingById = async (imdb_id, user_id, rating) => {
+exports.updateRatingById = async (movie_id, user_id, rating) => {
   const {
     rows: [row],
   } = await db.query(
-    `UPDATE ratings SET rating=$1 WHERE imdb_id=$2 AND user_id=$3 RETURNING *;`,
-    [rating, imdb_id, user_id]
+    `UPDATE ratings SET rating=$1 WHERE movie_id=$2 AND user_id=$3 RETURNING *;`,
+    [rating, movie_id, user_id]
   );
 
   return row;
