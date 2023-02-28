@@ -85,7 +85,7 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
   AND b.movie_id = f.movie_id
   ${filterByFollowers}
   ${filterByGenre}
-  ORDER BY released DESC
+  ORDER BY created_at DESC
   LIMIT $1
   OFFSET $2
   `,

@@ -228,7 +228,10 @@ describe("Favourites", () => {
       test("400: error message when missing info", () => {
         return request(app)
           .post("/api/users/2/favourites")
-          .send({ movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg", movie_title: "Watever" })
+          .send({
+            movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
+            movie_title: "Watever",
+          })
           .expect(400)
           .then((res) => {
             expect(res.body.msg).toBe("missing required fields");
@@ -619,6 +622,9 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
+                profile_pic:
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+                rating: 5,
               });
             });
           });
