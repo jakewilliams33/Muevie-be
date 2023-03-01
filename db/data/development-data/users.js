@@ -5,7 +5,7 @@ module.exports = [
     email: "bill123@live.com",
     profile_pic:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    hash: "$2b$10$oYc.lDaEZAHMFu416MC36OhXwhVeYB23O5LXBP/BIU5ss8ifZE9e6",
+    hash: "$argon2id$v=19$m=65536,t=3,p=4$TgRq5bXYw3K09AdpTVNOAw$l1PIZI7cDjwzYS40ETQSIIbsgh2PQgFdU1paar9vqto",
   },
   {
     username: "benny_andthejets",
@@ -13,7 +13,7 @@ module.exports = [
     email: "ben123@live.com",
     profile_pic:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    hash: "$2b$10$oYc.lDaEZAHMFu416MC36OhXwhVeYB23O5LXBP/BIU5ss8ifZE9e6",
+    hash: "$argon2id$v=19$m=65536,t=3,p=4$TgRq5bXYw3K09AdpTVNOAw$l1PIZI7cDjwzYS40ETQSIIbsgh2PQgFdU1paar9vqto",
   },
   {
     username: "your_nan",
@@ -21,7 +21,7 @@ module.exports = [
     email: "whatsup123@live.com",
     profile_pic:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    hash: "$2b$10$oYc.lDaEZAHMFu416MC36OhXwhVeYB23O5LXBP/BIU5ss8ifZE9e6",
+    hash: "$argon2id$v=19$m=65536,t=3,p=4$TgRq5bXYw3K09AdpTVNOAw$l1PIZI7cDjwzYS40ETQSIIbsgh2PQgFdU1paar9vqto",
   },
   {
     username: "cat_man",
@@ -29,7 +29,7 @@ module.exports = [
     email: "tim123@live.com",
     profile_pic:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    hash: "$2b$10$oYc.lDaEZAHMFu416MC36OhXwhVeYB23O5LXBP/BIU5ss8ifZE9e6",
+    hash: "$argon2id$v=19$m=65536,t=3,p=4$TgRq5bXYw3K09AdpTVNOAw$l1PIZI7cDjwzYS40ETQSIIbsgh2PQgFdU1paar9vqto",
   },
   {
     username: "curryboi69",
@@ -37,7 +37,7 @@ module.exports = [
     email: "barry123@live.com",
     profile_pic:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    hash: "$2b$10$oYc.lDaEZAHMFu416MC36OhXwhVeYB23O5LXBP/BIU5ss8ifZE9e6",
+    hash: "$argon2id$v=19$m=65536,t=3,p=4$TgRq5bXYw3K09AdpTVNOAw$l1PIZI7cDjwzYS40ETQSIIbsgh2PQgFdU1paar9vqto",
   },
   {
     username: "goth_geeza_666",
@@ -45,6 +45,6 @@ module.exports = [
     email: "ozzy123@live.com",
     profile_pic:
       "https://i.pinimg.com/originals/e3/19/01/e319014cc2aa22cfd18f97314de1b69e.jpg",
-    hash: "$2b$10$oYc.lDaEZAHMFu416MC36OhXwhVeYB23O5LXBP/BIU5ss8ifZE9e6",
+    hash: "$argon2id$v=19$m=65536,t=3,p=4$TgRq5bXYw3K09AdpTVNOAw$l1PIZI7cDjwzYS40ETQSIIbsgh2PQgFdU1paar9vqto",
   },
 ];

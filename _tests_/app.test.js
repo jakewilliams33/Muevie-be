@@ -23,78 +23,10 @@ describe("Users", () => {
                 profile_pic: expect.any(String),
                 user_id: expect.any(Number),
                 email: expect.any(String),
-                hash: expect.any(String),
                 created_at: expect.any(String),
                 name: expect.any(String),
               });
             });
-          });
-      });
-    });
-    describe("POST", () => {
-      test("201: Creates new user", () => {
-        const newUser = {
-          username: "blablabla",
-          name: "jake williams",
-          email: "test@test.test",
-          profile_pic: expect.any(String),
-
-          password: "password",
-        };
-        return request(app)
-          .post("/api/users")
-          .send(newUser)
-          .expect(201)
-          .then((res) => {
-            expect(res.body.user).toEqual({
-              username: newUser.username,
-              user_id: expect.any(Number),
-              name: newUser.name,
-              email: newUser.email,
-              created_at: expect.any(String),
-              profile_pic: expect.any(String),
-              hash: expect.any(String),
-            });
-          });
-      });
-      test("Ignores other keys", () => {
-        const newUser = {
-          username: "blablabla",
-          name: "jake williams",
-          email: "test@test.test",
-          profile_pic:
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-          cat: "cat",
-          isduibas: 656546,
-          password: "blass",
-        };
-        return request(app)
-          .post("/api/users")
-          .send(newUser)
-          .expect(201)
-          .then((res) => {
-            expect(res.body.user).toEqual({
-              username: newUser.username,
-              user_id: expect.any(Number),
-              name: newUser.name,
-              email: newUser.email,
-              created_at: expect.any(String),
-              profile_pic: expect.any(String),
-              hash: expect.any(String),
-            });
-          });
-      });
-      test("400: bad request when missing required keys", () => {
-        const newUser = {
-          username: "blablabla",
-          password: "password",
-        };
-        return request(app)
-          .post("/api/users")
-          .send(newUser)
-          .expect(400)
-          .then((res) => {
-            expect(res.body.msg).toBe("missing required fields");
           });
       });
     });
@@ -112,9 +44,7 @@ describe("Users", () => {
               name: "bill jenkins",
               email: "bill123@live.com",
               profile_pic: expect.any(String),
-
               created_at: expect.any(String),
-              hash: expect.any(String),
               user_id: 1,
               followers: 5,
               following: 4,
@@ -195,6 +125,140 @@ describe("Users", () => {
           .expect(404)
           .then((res) => {
             expect(res.body.msg).toBe("User Not Found");
+          });
+      });
+    });
+  });
+});
+
+describe("Register/Login", () => {
+  describe("/api/register", () => {
+    describe("POST", () => {
+      test("201: Creates new user", () => {
+        const newUser = {
+          username: "blablabla",
+          name: "jake williams",
+          email: "test@test.test",
+          profile_pic: expect.any(String),
+          password: "password",
+        };
+        return request(app)
+          .post("/api/register")
+          .send(newUser)
+          .expect(201)
+          .then((res) => {
+            expect(res.body.user).toEqual({
+              username: newUser.username,
+              user_id: expect.any(Number),
+              name: newUser.name,
+              email: newUser.email,
+              created_at: expect.any(String),
+              profile_pic: expect.any(String),
+            });
+          });
+      });
+      test("Ignores other keys", () => {
+        const newUser = {
+          username: "blablabla",
+          name: "jake williams",
+          email: "test@test.test",
+          profile_pic:
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          cat: "cat",
+          isduibas: 656546,
+          password: "blass",
+        };
+        return request(app)
+          .post("/api/register")
+          .send(newUser)
+          .expect(201)
+          .then((res) => {
+            expect(res.body.user).toEqual({
+              username: newUser.username,
+              user_id: expect.any(Number),
+              name: newUser.name,
+              email: newUser.email,
+              created_at: expect.any(String),
+              profile_pic: expect.any(String),
+            });
+          });
+      });
+      test("400: bad request when missing required keys", () => {
+        const newUser = {
+          username: "blablabla",
+          password: "password",
+        };
+        return request(app)
+          .post("/api/register")
+          .send(newUser)
+          .expect(400)
+          .then((res) => {
+            expect(res.body.msg).toBe("missing required fields");
+          });
+      });
+      test("bad request when username already exists", () => {
+        const newUser = {
+          username: "benny_andthejets",
+          name: "jake williams",
+          email: "test@test.test",
+          profile_pic: "bajnjs",
+          password: "password",
+        };
+        return request(app)
+          .post("/api/register")
+          .send(newUser)
+          .expect(400)
+          .then((res) => {
+            expect(res.body.msg).toBe("username taken");
+          });
+      });
+    });
+  });
+  describe("/api/login", () => {
+    describe("POST", () => {
+      test("200: verifies user password when passwords match", () => {
+        const userPass = { username: "benny_andthejets", password: "password" };
+        return request(app)
+          .post("/api/login")
+          .send(userPass)
+          .expect(200)
+          .then((res) => {
+            expect(res.body).toBe(true);
+          });
+      });
+      test("401: passwords don't match", () => {
+        const userPass = {
+          username: "benny_andthejets",
+          password: "password123",
+        };
+        return request(app)
+          .post("/api/login")
+          .send(userPass)
+          .expect(401)
+          .then((res) => {
+            expect(res.body.msg).toBe("Password Incorrect");
+          });
+      });
+    });
+  });
+  describe("/api/checkusername", () => {
+    describe("GET", () => {
+      test("returns true if username is free", () => {
+        return request(app)
+          .post("/api/checkusername")
+          .send({ username: "usernameee" })
+          .expect(200)
+          .then((res) => {
+            expect(res.body.usernameFree).toBe(true);
+          });
+      });
+      test("returns false if username is taken", () => {
+        return request(app)
+          .post("/api/checkusername")
+          .send({ username: "benny_andthejets" })
+          .expect(200)
+          .then((res) => {
+            expect(res.body.usernameFree).toBe(false);
           });
       });
     });
@@ -346,6 +410,7 @@ describe("Posts", () => {
                 comment_count: expect.any(Number),
                 profile_pic: expect.any(String),
                 rating: expect.any(Number),
+                media_type: "movie",
               });
             });
           });
@@ -380,6 +445,7 @@ describe("Posts", () => {
                 comment_count: expect.any(Number),
                 profile_pic: expect.any(String),
                 rating: expect.any(Number),
+                media_type: "movie",
               });
             });
           });
@@ -407,6 +473,7 @@ describe("Posts", () => {
                 comment_count: expect.any(Number),
                 profile_pic: expect.any(String),
                 rating: expect.any(Number),
+                media_type: "movie",
               });
             });
           });
@@ -479,6 +546,7 @@ describe("Posts", () => {
           released: "07 Nov 2003",
           user_id: 4,
           likes: 0,
+          media_type: "movie",
         };
         return request(app)
           .post("/api/posts")
@@ -528,6 +596,7 @@ describe("Posts", () => {
               body: "very good, I cry.",
               comment_count: expect.any(Number),
               genres: ["crime", "drama"],
+              media_type: "movie",
             });
           });
       });
@@ -595,6 +664,7 @@ describe("Posts", () => {
                 likes: expect.any(Number),
                 post_id: expect.any(Number),
                 comment_count: expect.any(Number),
+                media_type: "movie",
               });
             });
           });

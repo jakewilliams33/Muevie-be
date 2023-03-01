@@ -71,7 +71,7 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
   COALESCE(comment_count, 0) 
   AS comment_count,
   profile_pic, rating,
-  author, created_at, b.user_id, movie_title, b.movie_id, released, movie_poster, body, post_id
+  author, created_at, b.user_id, movie_title, b.movie_id, released, movie_poster, body, post_id, media_type
   FROM
   (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a
   FULL OUTER JOIN (SELECT * FROM posts) b
@@ -141,7 +141,7 @@ exports.selectPostById = async (post_id) => {
     `SELECT COALESCE(likes, 0) AS likes,
      COALESCE(comment_count, 0) 
      AS comment_count,
-     author, created_at, user_id, movie_title, movie_id, released, movie_poster, body, post_id FROM 
+     author, created_at, user_id, movie_title, movie_id, released, movie_poster, body, post_id, media_type FROM 
      (SELECT * FROM posts WHERE post_id=$1) a
      LEFT JOIN (SELECT post, count(post)::int AS likes FROM post_likes WHERE post=$1 GROUP BY post) b
      ON a.post_id = b.post
@@ -187,7 +187,7 @@ exports.selectPostsByImdbId = async (movie_id) => {
   AS likes,
   COALESCE(comment_count, 0) 
   AS comment_count,
-  author, created_at, user_id, movie_title, movie_id, released, movie_poster, body, post_id
+  author, created_at, user_id, movie_title, movie_id, released, movie_poster, body, post_id, media_type
   FROM
   (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a
   FULL OUTER JOIN (SELECT * FROM posts) b

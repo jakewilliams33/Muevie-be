@@ -1,13 +1,18 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+
+const {
+  postUser,
+  verifyUser,
+  verifyUserNameFree,
+} = require("./controllers/registerLogin.controller");
+
 const {
   getUsers,
-  postUser,
   getUserById,
   patchUserById,
   deleteUserById,
-
   getPostsByUserId,
   getActivityById,
   getFollowerActivityById,
@@ -70,7 +75,10 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/users", getUsers);
-app.post("/api/users", postUser);
+
+app.post("/api/register", postUser);
+app.post("/api/login", verifyUser);
+app.post("/api/checkusername", verifyUserNameFree);
 
 app.get("/api/users/:user_id", getUserById);
 app.patch("/api/users/:user_id", patchUserById);

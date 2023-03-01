@@ -1,6 +1,5 @@
 const {
   selectUsers,
-  insertUser,
   selectUserById,
   updateUserById,
   removeUserById,
@@ -13,14 +12,6 @@ exports.getUsers = (req, res) => {
   selectUsers().then((users) => {
     res.send({ users });
   });
-};
-
-exports.postUser = (req, res, next) => {
-  insertUser(req.body)
-    .then((user) => {
-      res.status(201).send({ user });
-    })
-    .catch((err) => next(err));
 };
 
 exports.getUserById = (req, res, next) => {

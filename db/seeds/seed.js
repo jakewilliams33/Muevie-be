@@ -42,7 +42,8 @@ const seed = async ({
     released VARCHAR,
     movie_poster VARCHAR,
     body VARCHAR,
-    type VARCHAR DEFAULT 'post'
+    type VARCHAR DEFAULT 'post',
+    media_type VARCHAR
     );`);
 
   await db.query(`CREATE TABLE ratings (
@@ -117,7 +118,7 @@ const seed = async ({
   );
 
   const postQueryStr = format(
-    "INSERT INTO posts ( author, user_id, movie_title, movie_id, released, movie_poster, body) VALUES %L RETURNING *;",
+    "INSERT INTO posts ( author, user_id, movie_title, movie_id, released, movie_poster, body, media_type) VALUES %L RETURNING *;",
     postsData.map(
       ({
         author,
@@ -127,6 +128,7 @@ const seed = async ({
         released,
         movie_poster,
         body,
+        media_type,
       }) => [
         author,
         user_id,
@@ -135,6 +137,7 @@ const seed = async ({
         released,
         movie_poster,
         body,
+        media_type,
       ]
     )
   );

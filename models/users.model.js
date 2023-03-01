@@ -1,31 +1,13 @@
 const db = require("../db/connection");
-const argon2 = require("argon2");
 
 exports.selectUsers = async () => {
-  const { rows } = await db.query(`SELECT * FROM users;`);
+  const { rows } = await db.query(`SELECT username,
+user_id,	
+name,	
+email,	
+profile_pic,
+created_at FROM users;`);
   return rows;
-};
-
-exports.insertUser = async ({
-  username,
-  name,
-  email,
-  profile_pic,
-  password,
-}) => {
-  if (!username || !password || !email || !name)
-    return Promise.reject({ status: 400, msg: "missing required fields" });
-
-  const hash = await argon2.hash(password);
-
-  const {
-    rows: [row],
-  } = await db.query(
-    "INSERT INTO users (username, name, email, profile_pic, hash) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
-    [username, name, email, profile_pic, hash]
-  );
-
-  return row;
 };
 
 exports.selectUserById = async (user_id) => {
@@ -33,7 +15,7 @@ exports.selectUserById = async (user_id) => {
     rows: [row],
   } = await db.query(
     `
-      SELECT username, a.user_id, name, email, profile_pic, created_at, hash, 
+      SELECT username, a.user_id, name, email, profile_pic, created_at, 
       COALESCE(userFollowing, 0) AS following, 
       COALESCE(userFollowers, 0) AS followers
       FROM (SELECT * FROM users WHERE user_id=$1) a
@@ -84,6 +66,8 @@ exports.updateUserById = async (
       status: 404,
       msg: "User Not Found",
     });
+
+  delete row.hash;
 
   return row;
 };
