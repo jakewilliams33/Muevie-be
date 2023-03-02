@@ -223,10 +223,10 @@ describe("Register/Login", () => {
           .send(userPass)
           .expect(200)
           .then((res) => {
-            expect(res.body).toBe(true);
+            expect(res.body).toEqual({ msg: "User Logged In", verified: true });
           });
       });
-      test("401: passwords don't match", () => {
+      test("200: passwords don't match", () => {
         const userPass = {
           username: "benny_andthejets",
           password: "password123",
@@ -234,9 +234,12 @@ describe("Register/Login", () => {
         return request(app)
           .post("/api/login")
           .send(userPass)
-          .expect(401)
+          .expect(200)
           .then((res) => {
-            expect(res.body.msg).toBe("Password Incorrect");
+            expect(res.body).toEqual({
+              verified: false,
+              msg: "Password Incorrect",
+            });
           });
       });
     });

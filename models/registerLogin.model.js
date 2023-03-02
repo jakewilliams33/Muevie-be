@@ -37,14 +37,13 @@ exports.checkUser = async ({ username, password }) => {
     rows: [row],
   } = await db.query("SELECT * FROM users WHERE username=$1;", [username]);
 
-  if (!row) return Promise.reject({ status: 404, msg: "User Not Found" });
+  if (!row) return { verified: false, msg: "User Not Found" };
 
   const result = await argon2.verify(row.hash, password);
 
-  if (!result)
-    return Promise.reject({ status: 401, msg: "Password Incorrect" });
+  if (!result) return { verified: false, msg: "Password Incorrect" };
   else {
-    return result;
+    return { verified: true, msg: "User Logged In" };
   }
 };
 
