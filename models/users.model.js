@@ -92,7 +92,7 @@ exports.selectPostsByUserId = async (user_id) => {
   COALESCE(comment_count, 0) 
   AS comment_count,
   profile_pic, rating,
-  author, created_at, b.user_id, movie_title, b.movie_id, released, movie_poster, body, post_id
+  author, created_at, b.user_id, movie_title, b.movie_id, released, movie_poster, body, post_id, media_type
   FROM
   (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a
   FULL OUTER JOIN (SELECT * FROM posts) b
