@@ -223,7 +223,19 @@ describe("Register/Login", () => {
           .send(userPass)
           .expect(200)
           .then((res) => {
-            expect(res.body).toEqual({ msg: "User Logged In", verified: true });
+            expect(res.body).toEqual({
+              msg: "User Logged In",
+              verified: true,
+              user: {
+                username: "benny_andthejets",
+                user_id: 2,
+                name: "jimathanny elton",
+                email: "ben123@live.com",
+                profile_pic:
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+                created_at: expect.any(String),
+              },
+            });
           });
       });
       test("200: passwords don't match", () => {

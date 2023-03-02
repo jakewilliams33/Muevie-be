@@ -43,7 +43,9 @@ exports.checkUser = async ({ username, password }) => {
 
   if (!result) return { verified: false, msg: "Password Incorrect" };
   else {
-    return { verified: true, msg: "User Logged In" };
+    delete row.hash;
+
+    return { verified: true, msg: "User Logged In", user: row };
   }
 };
 
