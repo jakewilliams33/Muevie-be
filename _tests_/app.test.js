@@ -257,7 +257,7 @@ describe("Register/Login", () => {
     });
   });
   describe("/api/checkusername", () => {
-    describe("GET", () => {
+    describe("POST", () => {
       test("returns true if username is free", () => {
         return request(app)
           .post("/api/checkusername")
