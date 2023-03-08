@@ -72,7 +72,11 @@ const {
 } = require("./server.errors");
 
 app.use(cors());
-app.options("*", cors());
+
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 app.use(express.json());
 
