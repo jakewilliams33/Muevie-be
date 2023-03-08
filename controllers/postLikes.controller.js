@@ -13,11 +13,11 @@ exports.addPostLike = (req, res) => {
   });
 };
 
-exports.deletePostLike = (req, res) => {
-  const { post_id, user_id } = req.body;
+exports.deletePostLike = (req, res, next) => {
+  const { post_id, user_id } = req.params;
 
   removePostLike(user_id, post_id).then((like) => {
-    res.status(204).send({ like });
+    res.status(204).send(like);
   });
 };
 

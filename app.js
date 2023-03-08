@@ -109,7 +109,7 @@ app.post("/api/users/:user_id/followers", addFollowing);
 app.delete("/api/users/:user_id/followers", deleteFollowing);
 
 app.post("/api/post_likes", addPostLike);
-app.delete("/api/post_likes", deletePostLike);
+app.delete("/api/users/:user_id/post_likes/:post_id", deletePostLike);
 app.get("/api/users/:user_id/post_likes", getLikesByUserId);
 
 app.get("/api/users/:user_id/posts", getPostsByUserId);

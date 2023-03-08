@@ -1101,8 +1101,7 @@ describe("Post likes", () => {
     describe("DELETE", () => {
       test("204: deletes like", () => {
         return request(app)
-          .delete("/api/post_likes")
-          .send({ post_id: 1, user_id: 3 })
+          .delete(`/api/users/${3}/post_likes/${1}`)
           .expect(204);
       });
     });
