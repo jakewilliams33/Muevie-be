@@ -41,6 +41,12 @@ exports.selectLikesByUserId = async (user_id) => {
     [user_id]
   );
 
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+
   const likes = rows.map((item) => item.post);
 
   return likes;
