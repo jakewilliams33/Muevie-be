@@ -71,10 +71,9 @@ const {
   sqlDuplicateKey,
 } = require("./server.errors");
 
-const corsOption = {
-  origin: ["http://localhost:3000"],
-};
-app.use(cors(corsOption));
+app.use(cors());
+app.options("*", cors());
+
 app.use(express.json());
 
 app.get("/api/users", getUsers);
