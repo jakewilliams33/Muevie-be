@@ -32,6 +32,12 @@ exports.getLikesByPostId = (req, res) => {
 exports.getLikesByUserId = (req, res) => {
   const { user_id } = req.params;
 
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+
   selectLikesByUserId(user_id).then((post_likes) => {
     res.status(200).send({ post_likes });
   });
