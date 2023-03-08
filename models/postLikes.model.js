@@ -37,8 +37,11 @@ exports.selectLikesByPostId = async (post_id) => {
 
 exports.selectLikesByUserId = async (user_id) => {
   const { rows } = await db.query(
-    `SELECT * FROM post_likes WHERE user_id = $1`,
+    `SELECT post FROM post_likes WHERE user_id = $1`,
     [user_id]
   );
-  return rows;
+
+  const likes = rows.map((item) => item.post);
+
+  return likes;
 };
