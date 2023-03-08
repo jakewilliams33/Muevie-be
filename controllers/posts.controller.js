@@ -13,7 +13,10 @@ exports.getPosts = (req, res, next) => {
 
   selectPosts(user_id, genre, limit, page)
     .then((posts) => {
-      res.status(200).send({ posts });
+      res
+        .status(200)
+        .res.set("access-control-allow-origin", "*")
+        .send({ posts });
     })
     .catch(next);
 };
