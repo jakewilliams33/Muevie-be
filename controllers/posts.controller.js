@@ -11,12 +11,6 @@ exports.getPosts = (req, res, next) => {
   const { user_id } = req.body;
   const { genre, limit = 10, page = 1 } = req.query;
 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-
   selectPosts(user_id, genre, limit, page)
     .then((posts) => {
       res.status(200).send({ posts });

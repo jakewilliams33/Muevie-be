@@ -92,12 +92,6 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
     [limit, page]
   );
 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-
   return rows;
 };
 
