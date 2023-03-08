@@ -34,3 +34,11 @@ exports.selectLikesByPostId = async (post_id) => {
 
   return rows;
 };
+
+exports.selectLikesByUserId = async (user_id) => {
+  const { rows } = await db.query(
+    `SELECT * FROM post_likes WHERE user_id = $1`,
+    [user_id]
+  );
+  return rows;
+};

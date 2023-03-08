@@ -2,6 +2,7 @@ const {
   insertPostLike,
   removePostLike,
   selectLikesByPostId,
+  selectLikesByUserId,
 } = require("../models/postLikes.model");
 
 exports.addPostLike = (req, res) => {
@@ -25,5 +26,13 @@ exports.getLikesByPostId = (req, res) => {
 
   selectLikesByPostId(post_id).then((users) => {
     res.status(200).send({ users });
+  });
+};
+
+exports.getLikesByUserId = (req, res) => {
+  const { user_id } = req.params;
+
+  selectLikesByUserId(user_id).then((post_likes) => {
+    res.status(200).send({ post_likes });
   });
 };

@@ -1157,6 +1157,49 @@ describe("Post likes", () => {
       });
     });
   });
+
+  describe("/api/users/:user_id/post_likes", () => {
+    describe("GET", () => {
+      test("200: responds with array of all liked posts by user", () => {
+        const expected = [
+          {
+            like_id: 2,
+            user_id: 3,
+            post: 1,
+            created_at: expect.any(String),
+            type: "post_like",
+          },
+          {
+            like_id: 6,
+            user_id: 3,
+            post: 4,
+            created_at: expect.any(String),
+            type: "post_like",
+          },
+          {
+            like_id: 7,
+            user_id: 3,
+            post: 2,
+            created_at: expect.any(String),
+            type: "post_like",
+          },
+          {
+            like_id: 8,
+            user_id: 3,
+            post: 6,
+            created_at: expect.any(String),
+            type: "post_like",
+          },
+        ];
+        return request(app)
+          .get("/api/users/3/post_likes")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.post_likes).toEqual(expected);
+          });
+      });
+    });
+  });
 });
 
 describe("Ratings", () => {

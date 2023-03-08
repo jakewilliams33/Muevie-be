@@ -50,6 +50,7 @@ const {
   addPostLike,
   deletePostLike,
   getLikesByPostId,
+  getLikesByUserId,
 } = require("./controllers/postLikes.controller");
 const {
   getRatingsById,
@@ -110,6 +111,7 @@ app.delete("/api/users/:user_id/followers", deleteFollowing);
 
 app.post("/api/post_likes", addPostLike);
 app.delete("/api/post_likes", deletePostLike);
+app.get("/api/users/:user_id/post_likes", getLikesByUserId);
 
 app.get("/api/users/:user_id/posts", getPostsByUserId);
 
