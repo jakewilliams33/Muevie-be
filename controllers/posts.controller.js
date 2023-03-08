@@ -12,6 +12,7 @@ exports.getPosts = (req, res, next) => {
   const { genre, limit = 10, page = 1 } = req.query;
 
   res.set("access-control-allow-origin", "*");
+  res.header("access-control-allow-origin", "*");
 
   selectPosts(user_id, genre, limit, page)
     .then((posts) => {
