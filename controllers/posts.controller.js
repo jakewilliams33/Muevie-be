@@ -11,12 +11,11 @@ exports.getPosts = (req, res, next) => {
   const { user_id } = req.body;
   const { genre, limit = 10, page = 1 } = req.query;
 
+  res.set("access-control-allow-origin", "*");
+
   selectPosts(user_id, genre, limit, page)
     .then((posts) => {
-      res
-        .status(200)
-        .res.set("access-control-allow-origin", "*")
-        .send({ posts });
+      res.status(200).send({ posts });
     })
     .catch(next);
 };
