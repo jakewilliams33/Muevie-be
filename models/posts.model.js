@@ -103,6 +103,7 @@ exports.insertPost = async ({
   movie_poster,
   body,
   released,
+  media_type,
 }) => {
   if (!author || !user_id || !movie_title || !body || !movie_id) {
     return Promise.reject({ status: 400, msg: "missing required fields" });
@@ -111,8 +112,17 @@ exports.insertPost = async ({
   const {
     rows: [row],
   } = await db.query(
-    "INSERT INTO posts (author, user_id, movie_title, movie_id, released, movie_poster, body) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;",
-    [author, user_id, movie_title, movie_id, released, movie_poster, body]
+    "INSERT INTO posts (author, user_id, movie_title, movie_id, released, movie_poster, body, media_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;",
+    [
+      author,
+      user_id,
+      movie_title,
+      movie_id,
+      released,
+      movie_poster,
+      body,
+      media_type,
+    ]
   );
 
   row.likes = 0;

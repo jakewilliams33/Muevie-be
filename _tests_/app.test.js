@@ -528,7 +528,7 @@ describe("Posts", () => {
     });
 
     describe("POST", () => {
-      test("200: adds a new post and responds with new post object", () => {
+      test("201: adds a new post and responds with new post object", () => {
         const newPost = {
           author: "cat_man",
           user_id: 4,
@@ -538,37 +538,29 @@ describe("Posts", () => {
             "https://m.media-amazon.com/images/M/MV5BMzUxNzkzMzQtYjIxZC00NzU0LThkYTQtZjNhNTljMTA1MDA1L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
           body: "the best film ever made",
           released: "07 Nov 2003",
-        };
-        const fakeUser = {
-          author: "cat_man",
-          user_id: 4324234,
-          movie_title: "Elf",
-          movie_id: "tt0319343",
-          movie_poster:
-            "https://m.media-amazon.com/images/M/MV5BMzUxNzkzMzQtYjIxZC00NzU0LThkYTQtZjNhNTljMTA1MDA1L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
-          body: "the best film ever made",
-          released: "07 Nov 2003",
-        };
-        const expected = {
-          author: "cat_man",
-          body: "the best film ever made",
-          created_at: expect.any(String),
-          movie_id: "tt0319343",
-          movie_poster:
-            "https://m.media-amazon.com/images/M/MV5BMzUxNzkzMzQtYjIxZC00NzU0LThkYTQtZjNhNTljMTA1MDA1L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
-          movie_title: "Elf",
-          post_id: 8,
-          released: "07 Nov 2003",
-          user_id: 4,
-          likes: 0,
           media_type: "movie",
         };
+
         return request(app)
           .post("/api/posts")
-          .send(fakeUser)
-          .expect(400)
+          .send(newPost)
+          .expect(201)
           .then((res) => {
-            expect(res.body.msg).toBe("Body Invalid");
+            expect(res.body.post).toEqual({
+              post_id: 8,
+              author: "cat_man",
+              created_at: expect.any(String),
+              user_id: 4,
+              movie_title: "Elf",
+              movie_id: "tt0319343",
+              released: "07 Nov 2003",
+              movie_poster:
+                "https://m.media-amazon.com/images/M/MV5BMzUxNzkzMzQtYjIxZC00NzU0LThkYTQtZjNhNTljMTA1MDA1L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+              body: "the best film ever made",
+              type: "post",
+              media_type: "movie",
+              likes: 0,
+            });
           });
       });
       test("400: responds with error if missing required field", () => {
@@ -606,7 +598,7 @@ describe("Posts", () => {
               user_id: 1,
               movie_title: "You Were Never Really Here",
               movie_id: "398181",
-              released: "06 Apr 2018",
+              released: "2018-04-06",
               movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
               body: "very good, I cry.",
               comment_count: expect.any(Number),
@@ -1190,7 +1182,7 @@ describe("Ratings", () => {
     describe("POST", () => {
       test("201: adds rating and returns new rating object", () => {
         return request(app)
-          .post("/api/users/2/ratings/tt0080684")
+          .post("/api/users/2/ratings/1891")
           .send({
             rating: 5,
             movie_title: "Star Wars: Episode V - The Empire Strikes Back",
@@ -1201,7 +1193,7 @@ describe("Ratings", () => {
           .then((res) => {
             expect(res.body.rating).toEqual({
               user_id: 2,
-              movie_id: "tt0080684",
+              movie_id: "1891",
               rating: 5,
               rating_id: expect.any(Number),
               created_at: expect.any(String),

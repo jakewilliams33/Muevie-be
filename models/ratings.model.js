@@ -26,6 +26,8 @@ exports.insertRatingById = async (
     [movie_id, user_id, rating, movie_title, movie_poster]
   );
 
+  console.log(row);
+
   return row;
 };
 
@@ -46,6 +48,5 @@ exports.updateRatingById = async (movie_id, user_id, rating) => {
     `UPDATE ratings SET rating=$1 WHERE movie_id=$2 AND user_id=$3 RETURNING *;`,
     [rating, movie_id, user_id]
   );
-
   return row;
 };
