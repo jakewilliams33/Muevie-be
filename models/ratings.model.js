@@ -1,4 +1,5 @@
 const db = require("../db/connection");
+const format = require("pg-format");
 
 exports.selectRatingsById = async (movie_id) => {
   const {
@@ -49,4 +50,14 @@ exports.updateRatingById = async (movie_id, user_id, rating) => {
     [rating, movie_id, user_id]
   );
   return row;
+};
+
+exports.selectRatingsByUserId = async (user_id, movie_id) => {
+  const filterMovie = movie_id ? format(`AND movie_id = %L`, movie_id) : "";
+
+  const { rows } = await db.query(
+    `SELECT * FROM ratings WHERE user_id=$1 ${filterMovie} ORDER BY created_at`,
+    [user_id]
+  );
+  return rows;
 };

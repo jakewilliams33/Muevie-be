@@ -57,6 +57,7 @@ const {
   addRatingById,
   deleteRatingById,
   patchRatingById,
+  getRatingsByUserId,
 } = require("./controllers/ratings.controller");
 const {
   getGenresById,
@@ -118,6 +119,7 @@ app.get("/api/posts/:post_id/post_likes", getLikesByPostId);
 app.get("/api/:movie_id/posts", getPostsByImdbId);
 
 app.get("/api/ratings/:movie_id", getRatingsById);
+app.get("/api/users/:user_id/ratings", getRatingsByUserId);
 app.post("/api/users/:user_id/ratings/:movie_id", addRatingById);
 app.delete("/api/users/:user_id/ratings/:movie_id", deleteRatingById);
 app.patch("/api/users/:user_id/ratings/:movie_id", patchRatingById);

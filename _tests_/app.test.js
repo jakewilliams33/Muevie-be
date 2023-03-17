@@ -1178,6 +1178,91 @@ describe("Ratings", () => {
     });
   });
 
+  describe.only("/api/users/:user_id/ratings", () => {
+    describe("GET", () => {
+      test("200: returns array of ratings made by specified user", () => {
+        return request(app)
+          .get("/api/users/1/ratings")
+          .expect(200)
+          .then((res) => {
+            expect(res.body).toEqual({
+              response: true,
+
+              ratings: [
+                {
+                  rating_id: 1,
+                  user_id: 1,
+                  movie_id: "398181",
+                  rating: 5,
+                  created_at: expect.any(String),
+                  movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
+                  movie_title: "You Were Never Really Here",
+                  type: "rating",
+                },
+                {
+                  rating_id: 4,
+                  user_id: 1,
+                  movie_id: "9279",
+                  rating: 2,
+                  created_at: expect.any(String),
+                  movie_poster: "/6QLkeLXPIxiihuX5enHHNEuCCzy.jpg",
+                  movie_title: "Jingle All the Way",
+                  type: "rating",
+                },
+              ],
+            });
+          });
+      });
+      test("200: returns array of ratings made by specified user", () => {
+        return request(app)
+          .get("/api/users/17/ratings")
+          .expect(200)
+          .then((res) => {
+            expect(res.body).toEqual({
+              response: false,
+              ratings: [],
+            });
+          });
+      });
+    });
+  });
+
+  describe.only("/api/users/:user_id/ratings (query)", () => {
+    describe("GET", () => {
+      test("200: returns rating of specified movie by specified user", () => {
+        return request(app)
+          .get("/api/users/1/ratings?movie_id=398181")
+          .expect(200)
+          .then((res) => {
+            expect(res.body).toEqual({
+              response: true,
+              rating: {
+                rating_id: 1,
+                user_id: 1,
+                movie_id: "398181",
+                rating: 5,
+                created_at: expect.any(String),
+                movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
+                movie_title: "You Were Never Really Here",
+                type: "rating",
+              },
+            });
+          });
+      });
+      test("200: returns false and empty object when no rating for movie", () => {
+        return request(app)
+          .get("/api/users/1/ratings?movie_id=3981891")
+          .expect(200)
+          .then((res) => {
+            expect(res.body).toEqual({
+              response: false,
+              rating: {},
+            });
+          });
+      });
+    });
+  });
+
   describe("/api/users/:user_id/ratings/:movie_id", () => {
     describe("POST", () => {
       test("201: adds rating and returns new rating object", () => {
