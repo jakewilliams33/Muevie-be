@@ -87,7 +87,7 @@ app.delete("/api/users/:user_id", deleteUserById);
 
 app.post("/api/users/:user_id/favourites", addFavouriteByUserId);
 app.get("/api/users/:user_id/favourites", getFavouritesByUserId);
-app.delete("/api/favourites/:favourite_id", deleteFavouriteById);
+app.delete("/api/users/:user_id/favourites/:movie_id", deleteFavouriteById);
 
 app.post("/api/users/:user_id/watched", addWatchedByUserId);
 app.get("/api/users/:user_id/watched", getWatchedByUserId);

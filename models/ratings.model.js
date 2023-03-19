@@ -27,8 +27,6 @@ exports.insertRatingById = async (
     [movie_id, user_id, rating, movie_title, movie_poster]
   );
 
-  console.log(row);
-
   return row;
 };
 

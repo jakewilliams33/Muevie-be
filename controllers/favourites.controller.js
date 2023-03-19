@@ -7,9 +7,9 @@ const {
 const { selectUserById } = require("../models/users.model");
 
 exports.deleteFavouriteById = (req, res, next) => {
-  const { favourite_id } = req.params;
+  const { user_id, movie_id } = req.params;
 
-  removeFavouriteById(favourite_id)
+  removeFavouriteById(user_id, movie_id)
     .then((favourite) => {
       res.status(204).send({ favourite });
     })

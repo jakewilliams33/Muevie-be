@@ -1,11 +1,11 @@
 const db = require("../db/connection");
 
-exports.removeFavouriteById = async (favourite_id) => {
+exports.removeFavouriteById = async (user_id, movie_id) => {
   const {
     rows: [row],
   } = await db.query(
-    "DELETE FROM favourites WHERE favourite_id=$1 RETURNING *;",
-    [favourite_id]
+    "DELETE FROM favourites WHERE user_id=$1 AND movie_id=$2 RETURNING *;",
+    [user_id, movie_id]
   );
 
   if (!row) return Promise.reject({ status: 404, msg: "Favourite Not Found" });

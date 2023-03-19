@@ -383,14 +383,16 @@ describe("Favourites", () => {
     });
   });
 
-  describe("/api/favourites/:favourite_id", () => {
+  describe("/api/users/:user_id/favourites/:favourite_id", () => {
     describe("DELETE", () => {
       test("204: deletes favourite", () => {
-        return request(app).delete("/api/favourites/1").expect(204);
+        return request(app)
+          .delete("/api/users/1/favourites/398181")
+          .expect(204);
       });
       test("404: error when favourite does not exist", () => {
         return request(app)
-          .delete("/api/favourites/1242424")
+          .delete("/api/users/1/favourites/3981815664")
           .expect(404)
           .then((res) => {
             expect(res.body.msg).toBe("Favourite Not Found");
@@ -1178,7 +1180,7 @@ describe("Ratings", () => {
     });
   });
 
-  describe.only("/api/users/:user_id/ratings", () => {
+  describe("/api/users/:user_id/ratings", () => {
     describe("GET", () => {
       test("200: returns array of ratings made by specified user", () => {
         return request(app)
@@ -1227,7 +1229,7 @@ describe("Ratings", () => {
     });
   });
 
-  describe.only("/api/users/:user_id/ratings (query)", () => {
+  describe("/api/users/:user_id/ratings (query)", () => {
     describe("GET", () => {
       test("200: returns rating of specified movie by specified user", () => {
         return request(app)
