@@ -5,9 +5,9 @@ const {
 } = require("../models/watched.model");
 
 exports.deleteWatchedById = (req, res) => {
-  const { watched_id } = req.params;
+  const { user_id, movie_id } = req.params;
 
-  removeWatchedById(watched_id).then((watched) => {
+  removeWatchedById(user_id, movie_id).then((watched) => {
     res.status(204).send({ watched });
   });
 };

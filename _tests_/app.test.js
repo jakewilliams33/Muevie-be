@@ -785,10 +785,10 @@ describe("Watched", () => {
     });
   });
 
-  describe("/api/watched/:watched_id", () => {
+  describe("/api/users/:user_id/watched/:movie_id", () => {
     describe("DELETE", () => {
       test("204: deletes watched movie", () => {
-        return request(app).delete("/api/watched/1").expect(204);
+        return request(app).delete("/api/users/1/watched/398181").expect(204);
       });
     });
   });

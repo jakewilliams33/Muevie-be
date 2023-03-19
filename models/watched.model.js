@@ -1,11 +1,12 @@
 const db = require("../db/connection");
 
-exports.removeWatchedById = async (watched_id) => {
+exports.removeWatchedById = async (user_id, movie_id) => {
   const {
     rows: [row],
-  } = await db.query("DELETE FROM watched WHERE watched_id=$1 RETURNING *;", [
-    watched_id,
-  ]);
+  } = await db.query(
+    "DELETE FROM watched WHERE user_id=$1 AND movie_id=$2 RETURNING *;",
+    [user_id, movie_id]
+  );
 
   if (!row) return Promise.reject({ status: 404, msg: "ID Not Found" });
 
