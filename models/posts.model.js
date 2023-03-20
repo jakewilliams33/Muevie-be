@@ -197,14 +197,20 @@ exports.selectPostsByImdbId = async (movie_id) => {
   AS likes,
   COALESCE(comment_count, 0) 
   AS comment_count,
-  author, created_at, user_id, movie_title, movie_id, released, movie_poster, body, post_id, media_type
+  profile_pic, rating,
+  author, created_at, b.user_id, movie_title, b.movie_id, released, movie_poster, body, post_id, media_type
   FROM
   (SELECT post, count(post)::int AS likes FROM post_likes GROUP BY post) a
   FULL OUTER JOIN (SELECT * FROM posts) b
   ON a.post = b.post_id 
   FULL OUTER JOIN (SELECT post, count(post)::int AS comment_count FROM comments GROUP BY post) d
   ON b.post_id = d.post
-  WHERE movie_id=$1
+  LEFT JOIN (SELECT user_id, profile_pic FROM users) e
+  ON b.user_id = e.user_id
+  LEFT JOIN (SELECT user_id, movie_id, rating FROM ratings) f
+  ON b.user_id = f.user_id
+  AND b.movie_id = f.movie_id
+  WHERE b.movie_id=$1
   ORDER BY created_at DESC
   `,
     [movie_id]
