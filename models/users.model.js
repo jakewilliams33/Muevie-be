@@ -1,3 +1,4 @@
+const format = require("pg-format");
 const db = require("../db/connection");
 
 exports.selectUsers = async () => {
@@ -84,7 +85,9 @@ exports.removeUserById = async (user_id) => {
   return row;
 };
 
-exports.selectPostsByUserId = async (user_id) => {
+exports.selectPostsByUserId = async (user_id, movie_id) => {
+  const filterBymovie = format(`AND b.movie_id=%L`, movie_id);
+
   const { rows } = await db.query(
     `
   SELECT COALESCE(likes, 0) 
@@ -105,6 +108,7 @@ exports.selectPostsByUserId = async (user_id) => {
   ON b.user_id = f.user_id
   AND b.movie_id = f.movie_id
   WHERE b.user_id = $1
+  ${movie_id ? filterBymovie : ""}
   ORDER BY created_at DESC
   `,
     [user_id]

@@ -712,6 +712,30 @@ describe("Posts", () => {
             });
           });
       });
+      test("200: responds with posts made by specified user", () => {
+        return request(app)
+          .get("/api/users/3/posts?movie_id=348")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.posts[0]).toEqual({
+              author: expect.any(String),
+              body: expect.any(String),
+              movie_title: expect.any(String),
+              user_id: 3,
+              movie_id: "348",
+              released: expect.any(String),
+              created_at: expect.any(String),
+              movie_poster: expect.any(String),
+              likes: expect.any(Number),
+              post_id: expect.any(Number),
+              comment_count: expect.any(Number),
+              profile_pic:
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+              rating: 4,
+              media_type: "movie",
+            });
+          });
+      });
     });
   });
 });
