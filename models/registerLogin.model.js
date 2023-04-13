@@ -1,11 +1,26 @@
 const db = require("../db/connection");
 const argon2 = require("argon2");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+
+require("dotenv").config({
+  path: `${__dirname}/../.env.aws_config`,
+});
+
+const credentials = {
+  region: process.env.AWS_S3_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+  },
+};
+
+const client = new S3Client(credentials);
 
 exports.insertUser = async ({
   username,
   name,
   email,
-  profile_pic,
+  picture_file,
   password,
 }) => {
   if (!username || !password || !email || !name)
@@ -16,6 +31,29 @@ exports.insertUser = async ({
       .rows.length > 0
   ) {
     return Promise.reject({ status: 400, msg: "username taken" });
+  }
+
+  if (picture_file) {
+    const blob = picture_file.buffer;
+    const imagePath = `${picture_file.fieldname}_${Date.now()}_${
+      picture_file.originalname
+    }`;
+
+    const command = new PutObjectCommand({
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Key: imagePath,
+      Body: blob,
+    });
+
+    try {
+      await client.send(command);
+      profile_pic = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${imagePath}`;
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    profile_pic =
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   }
 
   const hash = await argon2.hash(password);

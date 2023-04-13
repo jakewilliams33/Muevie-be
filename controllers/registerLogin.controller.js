@@ -7,7 +7,7 @@ const {
 } = require("../models/registerLogin.model");
 
 exports.postUser = (req, res, next) => {
-  insertUser(req.body)
+  insertUser({ ...req.body, picture_file: req.file })
     .then((user) => {
       res.status(201).send({ user });
     })

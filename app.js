@@ -72,12 +72,19 @@ const {
   sqlDuplicateKey,
 } = require("./server.errors");
 
+const multer = require("multer");
+
+app.use(express.urlencoded({ extended: true }));
+
 app.use(express.json());
 app.use(cors({ origin: true }));
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 app.get("/api/users", getUsers);
 
-app.post("/api/register", postUser);
+app.post("/api/register", upload.single("profile_pic"), postUser);
 app.post("/api/login", verifyUser);
 app.post("/api/checkusername", verifyUserNameFree);
 

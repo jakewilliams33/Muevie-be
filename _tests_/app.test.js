@@ -3,6 +3,7 @@ const request = require("supertest");
 const db = require("../db/connection.js");
 const seed = require("../db/seeds/seed");
 const data = require("../db/data/test-data/index");
+const path = require("path");
 
 beforeEach(() => seed(data));
 afterAll(() => db.end());
@@ -144,33 +145,11 @@ describe("Register/Login", () => {
         };
         return request(app)
           .post("/api/register")
-          .send(newUser)
-          .expect(201)
-          .then((res) => {
-            expect(res.body.user).toEqual({
-              username: newUser.username,
-              user_id: expect.any(Number),
-              name: newUser.name,
-              email: newUser.email,
-              created_at: expect.any(String),
-              profile_pic: expect.any(String),
-            });
-          });
-      });
-      test("Ignores other keys", () => {
-        const newUser = {
-          username: "blablabla",
-          name: "jake williams",
-          email: "test@test.test",
-          profile_pic:
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-          cat: "cat",
-          isduibas: 656546,
-          password: "blass",
-        };
-        return request(app)
-          .post("/api/register")
-          .send(newUser)
+          .field("name", "jake williams")
+          .field("username", "blablabla")
+          .field("email", "test@test.test")
+          .field("password", "password")
+          .attach("profile_pic", "_tests_/testImg.jpg")
           .expect(201)
           .then((res) => {
             expect(res.body.user).toEqual({
