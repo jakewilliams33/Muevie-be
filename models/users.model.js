@@ -130,7 +130,7 @@ exports.selectActivityById = async (user_id) => {
 
   const post_likes = (
     await db.query(
-      `SELECT like_id, post_likes.user_id, post, post_likes.created_at, post_likes.type, author, movie_title, released, movie_poster, body
+      `SELECT like_id, post_likes.user_id, post, post_likes.created_at, post_likes.type, author, movie_title, released, movie_poster, body, posts.movie_id
       FROM post_likes LEFT JOIN posts ON post_likes.post = posts.post_id 
        WHERE post_likes.user_id=$1
       `,
@@ -143,7 +143,7 @@ exports.selectActivityById = async (user_id) => {
       `SELECT 
       comments.author AS comment_author,
       posts.author AS post_author,
-      comment_id, comments.user_id, post, comments.created_at, comments.type, movie_title, released, movie_poster, comments.body
+      comment_id, comments.user_id, post, comments.created_at, comments.type, movie_title, released, movie_poster, comments.body, movie_id
       FROM comments LEFT JOIN posts ON comments.post = posts.post_id 
        WHERE comments.user_id=$1
       `,
