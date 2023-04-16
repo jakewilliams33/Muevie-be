@@ -24,8 +24,7 @@ exports.addFollowing = (req, res) => {
 };
 
 exports.deleteFollowing = (req, res) => {
-  const { following } = req.body;
-  const { user_id } = req.params;
+  const { user_id, following } = req.params;
 
   removeFollowing(user_id, following).then((following) => {
     res.status(204).send({ following });

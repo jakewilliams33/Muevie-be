@@ -114,7 +114,7 @@ app.delete("/api/comments/:comment_id", deleteCommentById);
 
 app.get("/api/users/:user_id/followers", getFollowingByUserId);
 app.post("/api/users/:user_id/followers", addFollowing);
-app.delete("/api/users/:user_id/followers", deleteFollowing);
+app.delete("/api/users/:user_id/followers/:following", deleteFollowing);
 
 app.post("/api/post_likes", addPostLike);
 app.delete("/api/users/:user_id/post_likes/:post_id", deletePostLike);

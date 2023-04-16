@@ -884,7 +884,7 @@ describe("Comments", () => {
 });
 
 describe("Followers", () => {
-  describe("/api/users/:user_id/followers", () => {
+  describe("/api/users/:user_id/followers/:following", () => {
     describe("GET", () => {
       const expected = {
         followers: [
@@ -982,10 +982,7 @@ describe("Followers", () => {
     });
     describe("DELETE", () => {
       test("204: deletes following/unfollows user", () => {
-        return request(app)
-          .delete("/api/users/3/followers")
-          .send({ following: 1, user_id: 3 })
-          .expect(204);
+        return request(app).delete("/api/users/3/followers/1").expect(204);
       });
     });
   });
