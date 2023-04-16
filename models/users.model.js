@@ -21,10 +21,10 @@ exports.selectUserById = async (user_id) => {
       COALESCE(userFollowers, 0) AS followers
       FROM (SELECT * FROM users WHERE user_id=$1) a
       LEFT JOIN
-      (SELECT following, count(following)::int AS userFollowing FROM followers WHERE following=$1 GROUP BY following) b
+      (SELECT following, count(following)::int AS userFollowers FROM followers WHERE following=$1 GROUP BY following) b
       ON a.user_id = b.following
       LEFT JOIN
-      (SELECT user_id, count(user_id)::int AS userFollowers FROM followers WHERE user_id=$1 GROUP BY user_id) c
+      (SELECT user_id, count(user_id)::int AS userFollowing FROM followers WHERE user_id=$1 GROUP BY user_id) c
       ON a.user_id = c.user_id
       `,
     [user_id]
