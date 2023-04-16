@@ -18,13 +18,14 @@ exports.insertRatingById = async (
   user_id,
   rating,
   movie_title,
-  movie_poster
+  movie_poster,
+  media_type
 ) => {
   const {
     rows: [row],
   } = await db.query(
-    `INSERT INTO ratings (movie_id, user_id, rating, movie_title, movie_poster) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
-    [movie_id, user_id, rating, movie_title, movie_poster]
+    `INSERT INTO ratings (movie_id, user_id, rating, movie_title, movie_poster, media_type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`,
+    [movie_id, user_id, rating, movie_title, movie_poster, media_type]
   );
 
   return row;

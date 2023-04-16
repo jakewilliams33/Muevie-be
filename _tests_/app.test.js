@@ -267,6 +267,7 @@ describe("Favourites", () => {
           movie_id: "tt0109248",
           movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
           movie_title: "Watever",
+          media_type: "movie",
         };
         return request(app)
           .post("/api/users/2/favourites")
@@ -280,6 +281,7 @@ describe("Favourites", () => {
               movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
               movie_title: "Watever",
               created_at: expect.any(String),
+              media_type: "movie",
             });
           });
       });
@@ -300,6 +302,7 @@ describe("Favourites", () => {
           movie_id: "tt0109248",
           movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
           movie_title: "Watever",
+          media_type: "movie",
         };
         return request(app)
           .post("/api/users/1242424/favourites")
@@ -324,6 +327,7 @@ describe("Favourites", () => {
                 movie_poster: expect.any(String),
                 movie_title: expect.any(String),
                 created_at: expect.any(String),
+                media_type: "movie",
               });
             });
           });
@@ -736,6 +740,7 @@ describe("Watched", () => {
                 movie_title: expect.any(String),
                 created_at: expect.any(String),
                 type: "watched",
+                media_type: "movie",
               });
             });
           });
@@ -744,14 +749,15 @@ describe("Watched", () => {
 
     describe("POST", () => {
       test("201: adds a new watched movie", () => {
-        const newFav = {
+        const newWatched = {
           movie_id: "tt0109248",
           movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
           movie_title: "Watever",
+          media_type: "movie",
         };
         return request(app)
           .post("/api/users/2/watched")
-          .send(newFav)
+          .send(newWatched)
           .expect(201)
           .then((res) => {
             expect(res.body.watched).toEqual({
@@ -762,6 +768,7 @@ describe("Watched", () => {
               movie_title: "Watever",
               created_at: expect.any(String),
               type: "watched",
+              media_type: "movie",
             });
           });
       });
@@ -1206,6 +1213,7 @@ describe("Ratings", () => {
                   movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
                   movie_title: "You Were Never Really Here",
                   type: "rating",
+                  media_type: "movie",
                 },
                 {
                   rating_id: 4,
@@ -1216,6 +1224,7 @@ describe("Ratings", () => {
                   movie_poster: "/6QLkeLXPIxiihuX5enHHNEuCCzy.jpg",
                   movie_title: "Jingle All the Way",
                   type: "rating",
+                  media_type: "movie",
                 },
               ],
             });
@@ -1253,6 +1262,7 @@ describe("Ratings", () => {
                 movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
                 movie_title: "You Were Never Really Here",
                 type: "rating",
+                media_type: "movie",
               },
             });
           });
@@ -1281,6 +1291,7 @@ describe("Ratings", () => {
             movie_title: "Star Wars: Episode V - The Empire Strikes Back",
             movie_poster:
               "https://m.media-amazon.com/images/M/MV5BYmU1NDRjNDgtMzhiMi00NjZmLTg5NGItZDNiZjU5NTU4OTE0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+            media_type: "movie",
           })
           .expect(201)
           .then((res) => {
@@ -1294,6 +1305,7 @@ describe("Ratings", () => {
               movie_title: "Star Wars: Episode V - The Empire Strikes Back",
               movie_poster:
                 "https://m.media-amazon.com/images/M/MV5BYmU1NDRjNDgtMzhiMi00NjZmLTg5NGItZDNiZjU5NTU4OTE0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+              media_type: "movie",
             });
           });
       });
@@ -1319,6 +1331,7 @@ describe("Ratings", () => {
               type: "rating",
               movie_title: "You Were Never Really Here",
               movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
+              media_type: "movie",
             });
           });
       });

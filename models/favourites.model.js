@@ -27,16 +27,16 @@ exports.selectFavouritesByUserId = async (user_id, order = "DESC") => {
 
 exports.insertFavouriteByUserId = async (
   user_id,
-  { movie_id, movie_poster, movie_title }
+  { movie_id, movie_poster, movie_title, media_type }
 ) => {
-  if (!user_id || !movie_id || !movie_title)
+  if (!user_id || !movie_id || !movie_title || !media_type)
     return Promise.reject({ status: 400, msg: "missing required fields" });
 
   const {
     rows: [row],
   } = await db.query(
-    "INSERT INTO favourites (user_id, movie_id, movie_poster, movie_title) VALUES ($1, $2, $3, $4) RETURNING *;",
-    [user_id, movie_id, movie_poster, movie_title]
+    "INSERT INTO favourites (user_id, movie_id, movie_poster, movie_title, media_type) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
+    [user_id, movie_id, movie_poster, movie_title, media_type]
   );
 
   return row;

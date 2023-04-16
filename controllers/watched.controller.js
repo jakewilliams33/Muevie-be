@@ -24,9 +24,9 @@ exports.getWatchedByUserId = (req, res, next) => {
 
 exports.addWatchedByUserId = (req, res, next) => {
   const { user_id } = req.params;
-  const newFav = req.body;
+  const newWatched = req.body;
 
-  insertWatchedByUserId(user_id, newFav, next).then((watched) => {
+  insertWatchedByUserId(user_id, newWatched, next).then((watched) => {
     res.status(201).send({ watched });
   });
 };

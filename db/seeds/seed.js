@@ -54,7 +54,8 @@ const seed = async ({
     created_at TIMESTAMP DEFAULT NOW(),
     movie_poster VARCHAR,
     movie_title VARCHAR,
-    type VARCHAR DEFAULT 'rating'
+    type VARCHAR DEFAULT 'rating',
+    media_type VARCHAR
     );`);
 
   await db.query(`CREATE TABLE favourites (
@@ -63,7 +64,8 @@ const seed = async ({
     movie_id VARCHAR,
     movie_poster VARCHAR,
     movie_title VARCHAR,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    media_type VARCHAR
     );`);
 
   await db.query(`CREATE TABLE watched (
@@ -73,8 +75,8 @@ const seed = async ({
     movie_poster VARCHAR,
     movie_title VARCHAR,
     created_at TIMESTAMP DEFAULT NOW(),
-    type VARCHAR DEFAULT 'watched'
-
+    type VARCHAR DEFAULT 'watched',
+    media_type VARCHAR
     );`);
 
   await db.query(`CREATE TABLE comments (
@@ -143,36 +145,43 @@ const seed = async ({
   );
 
   const ratingQueryStr = format(
-    "INSERT INTO ratings ( user_id, movie_id, rating, movie_title, movie_poster) VALUES %L RETURNING *;",
+    "INSERT INTO ratings ( user_id, movie_id, rating, movie_title, movie_poster, media_type) VALUES %L RETURNING *;",
     ratingsData.map(
-      ({ user_id, movie_id, rating, movie_title, movie_poster }) => [
+      ({
         user_id,
         movie_id,
         rating,
         movie_title,
         movie_poster,
-      ]
+        media_type,
+      }) => [user_id, movie_id, rating, movie_title, movie_poster, media_type]
     )
   );
 
   const favouriteQueryStr = format(
-    "INSERT INTO favourites ( user_id, movie_id, movie_poster, movie_title) VALUES %L RETURNING *;",
-    favouritesData.map(({ user_id, movie_id, movie_poster, movie_title }) => [
-      user_id,
-      movie_id,
-      movie_poster,
-      movie_title,
-    ])
+    "INSERT INTO favourites ( user_id, movie_id, movie_poster, movie_title, media_type) VALUES %L RETURNING *;",
+    favouritesData.map(
+      ({ user_id, movie_id, movie_poster, movie_title, media_type }) => [
+        user_id,
+        movie_id,
+        movie_poster,
+        movie_title,
+        media_type,
+      ]
+    )
   );
 
   const watchedQueryStr = format(
-    "INSERT INTO watched ( user_id, movie_id, movie_poster, movie_title) VALUES %L RETURNING *;",
-    watchedData.map(({ user_id, movie_id, movie_poster, movie_title }) => [
-      user_id,
-      movie_id,
-      movie_poster,
-      movie_title,
-    ])
+    "INSERT INTO watched ( user_id, movie_id, movie_poster, movie_title, media_type) VALUES %L RETURNING *;",
+    watchedData.map(
+      ({ user_id, movie_id, movie_poster, movie_title, media_type }) => [
+        user_id,
+        movie_id,
+        movie_poster,
+        movie_title,
+        media_type,
+      ]
+    )
   );
 
   const commentQueryStr = format(
