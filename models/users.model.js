@@ -141,6 +141,7 @@ exports.selectActivityById = async (user_id) => {
   const comments = (
     await db.query(
       `SELECT 
+      posts.user_id AS author_id,
       comments.author AS comment_author,
       posts.author AS post_author,
       comment_id, comments.user_id, post, comments.created_at, comments.type, movie_title, released, movie_poster, comments.body, posts.media_type
