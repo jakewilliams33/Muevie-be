@@ -64,7 +64,7 @@ module.exports = [
     user_id: 6,
     movie_title: "The Crow",
     movie_id: "9495",
-    released: "13 May 1994-05-13",
+    released: "1994-05-13",
     movie_poster: "/iH5eExSCOv1kxJXH9npPyM0EAJF.jpg",
     body: "can't wait for the sequel!",
     media_type: "movie",

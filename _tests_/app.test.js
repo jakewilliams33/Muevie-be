@@ -47,8 +47,8 @@ describe("Users", () => {
               profile_pic: expect.any(String),
               created_at: expect.any(String),
               user_id: 1,
-              followers: 5,
-              following: 4,
+              followers: 4,
+              following: 5,
             });
           });
       });
@@ -1330,6 +1330,19 @@ describe("Ratings", () => {
               movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
               media_type: "movie",
             });
+          });
+      });
+    });
+  });
+
+  describe("/api/ratings/:movie_id/followers/:user_id", () => {
+    describe("GET", () => {
+      test("200: returns average score from followers of specified user relating to specified movie", () => {
+        return request(app)
+          .get("/api/ratings/9279/followers/1")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.rating).toBe(3.6);
           });
       });
     });

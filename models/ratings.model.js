@@ -13,6 +13,18 @@ exports.selectRatingsById = async (movie_id) => {
   return parseFloat(result);
 };
 
+exports.selectFollowingRating = async (user_id, movie_id) => {
+  const testing = await db.query(
+    `SELECT AVG(rating)
+FROM ratings
+WHERE user_id = ANY
+  (SELECT following FROM followers WHERE user_id = $1  AND movie_id = $2)`,
+    [user_id, movie_id]
+  );
+
+  return parseFloat(testing.rows[0].avg.slice(0, 3));
+};
+
 exports.insertRatingById = async (
   movie_id,
   user_id,

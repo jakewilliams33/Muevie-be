@@ -4,12 +4,21 @@ const {
   removeRatingById,
   updateRatingById,
   selectRatingsByUserId,
+  selectFollowingRating,
 } = require("../models/ratings.model");
 
 exports.getRatingsById = (req, res) => {
   const { movie_id } = req.params;
 
   selectRatingsById(movie_id).then((rating) => {
+    res.send({ rating });
+  });
+};
+
+exports.getFollowingRating = (req, res) => {
+  const { user_id, movie_id } = req.params;
+
+  selectFollowingRating(user_id, movie_id).then((rating) => {
     res.send({ rating });
   });
 };
