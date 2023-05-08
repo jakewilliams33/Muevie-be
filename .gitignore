@@ -1,4 +1,0 @@
-.env.production
-.env.development
-.env.test
-.env.aws_config
