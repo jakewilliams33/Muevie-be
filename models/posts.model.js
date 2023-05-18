@@ -190,7 +190,13 @@ exports.updatePostById = async (body, post_id) => {
   return row;
 };
 
-exports.selectPostsByImdbId = async (movie_id) => {
+exports.selectPostsByImdbId = async (movie_id, limit, page) => {
+  page = (page - 1) * limit;
+
+  if (isNaN(parseInt(limit)) || parseInt(limit) > 100) {
+    return Promise.reject({ status: 400, msg: "Invalid limit" });
+  }
+
   const { rows } = await db.query(
     `
   SELECT COALESCE(likes, 0) 
@@ -212,8 +218,10 @@ exports.selectPostsByImdbId = async (movie_id) => {
   AND b.movie_id = f.movie_id
   WHERE b.movie_id=$1
   ORDER BY created_at DESC
+  LIMIT $2
+  OFFSET $3
   `,
-    [movie_id]
+    [movie_id, limit, page]
   );
 
   return rows;

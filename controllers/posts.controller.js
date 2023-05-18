@@ -58,8 +58,9 @@ exports.patchPostById = (req, res, next) => {
 
 exports.getPostsByImdbId = (req, res, next) => {
   const { movie_id } = req.params;
+  const { genre, limit = 10, page = 1 } = req.query;
 
-  selectPostsByImdbId(movie_id)
+  selectPostsByImdbId(movie_id, limit, page)
     .then((posts) => {
       res.status(200).send({ posts });
     })
