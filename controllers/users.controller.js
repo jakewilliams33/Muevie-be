@@ -45,8 +45,8 @@ exports.deleteUserById = (req, res, next) => {
 
 exports.getPostsByUserId = (req, res, next) => {
   const { user_id } = req.params;
-  const { movie_id } = req.query;
-  selectPostsByUserId(user_id, movie_id).then((posts) => {
+  const { movie_id, limit = 10, page = 1 } = req.query;
+  selectPostsByUserId(user_id, movie_id, limit, page).then((posts) => {
     res.status(200).send({ posts });
   });
 };

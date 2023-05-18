@@ -85,8 +85,14 @@ exports.removeUserById = async (user_id) => {
   return row;
 };
 
-exports.selectPostsByUserId = async (user_id, movie_id) => {
+exports.selectPostsByUserId = async (user_id, movie_id, limit, page) => {
   const filterBymovie = format(`AND b.movie_id=%L`, movie_id);
+
+  page = (page - 1) * limit;
+
+  if (isNaN(parseInt(limit)) || parseInt(limit) > 100) {
+    return Promise.reject({ status: 400, msg: "Invalid limit" });
+  }
 
   const { rows } = await db.query(
     `
@@ -110,8 +116,10 @@ exports.selectPostsByUserId = async (user_id, movie_id) => {
   WHERE b.user_id = $1
   ${movie_id ? filterBymovie : ""}
   ORDER BY created_at DESC
+  LIMIT $2
+  OFFSET $3
   `,
-    [user_id]
+    [user_id, limit, page]
   );
 
   if (!rows) return Promise.reject({ status: 404, msg: "User Not Found" });
