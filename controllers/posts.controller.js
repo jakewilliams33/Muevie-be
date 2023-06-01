@@ -8,8 +8,7 @@ const {
 } = require("../models/posts.model");
 
 exports.getPosts = (req, res, next) => {
-  const { user_id } = req.body;
-  const { genre, limit = 10, page = 1 } = req.query;
+  const { user_id, genre, limit = 10, page = 1 } = req.query;
 
   selectPosts(user_id, genre, limit, page)
     .then((posts) => {

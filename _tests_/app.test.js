@@ -452,8 +452,7 @@ describe("Posts", () => {
       });
       test("200: returns array of post objects filtered by followers", () => {
         return request(app)
-          .get("/api/posts?page=1")
-          .send({ user_id: 6 })
+          .get("/api/posts?page=1&user_id=6")
           .expect(200)
           .then((res) => {
             expect(res.body.posts.length).toBe(3);
