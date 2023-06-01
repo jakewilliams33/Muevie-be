@@ -771,6 +771,18 @@ describe("Watched", () => {
             });
           });
       });
+      test("400: blocks when movie already there ", () => {
+        const newWatched = {
+          movie_id: "398181",
+          movie_poster: "/kve20tXwUZpu4GUX8l6X7Z4jmL6.jpg",
+          movie_title: "You Were Never Really Here",
+          media_type: "movie",
+        };
+        return request(app)
+          .post("/api/users/1/watched")
+          .send(newWatched)
+          .expect(200);
+      });
     });
   });
 

@@ -26,7 +26,14 @@ exports.addWatchedByUserId = (req, res, next) => {
   const { user_id } = req.params;
   const newWatched = req.body;
 
-  insertWatchedByUserId(user_id, newWatched, next).then((watched) => {
-    res.status(201).send({ watched });
-  });
+  insertWatchedByUserId(user_id, newWatched, next)
+    .then((watched) => {
+      res.status(201).send({ watched });
+    })
+    .catch((err) => {
+      if (err.code === "23505") {
+        console.log("dick");
+        res.status(200).send({});
+      }
+    });
 };

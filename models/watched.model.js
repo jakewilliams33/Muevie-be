@@ -36,5 +36,6 @@ exports.insertWatchedByUserId = async (
     "INSERT INTO watched (user_id, movie_id, movie_poster, movie_title, media_type) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
     [user_id, movie_id, movie_poster, movie_title, media_type]
   );
+
   return row;
 };
