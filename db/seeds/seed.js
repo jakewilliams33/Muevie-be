@@ -69,14 +69,15 @@ const seed = async ({
     );`);
 
   await db.query(`CREATE TABLE watched (
-    watched_id SERIAL PRIMARY KEY,
+    watched_id SERIAL,
     user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
     movie_id VARCHAR,
     movie_poster VARCHAR,
     movie_title VARCHAR,
     created_at TIMESTAMP DEFAULT NOW(),
     type VARCHAR DEFAULT 'watched',
-    media_type VARCHAR
+    media_type VARCHAR,
+    PRIMARY KEY(user_id, movie_id)
     );`);
 
   await db.query(`CREATE TABLE comments (
