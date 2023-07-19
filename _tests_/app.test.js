@@ -193,10 +193,10 @@ describe("Register/Login", () => {
       });
     });
   });
-  describe("/api/login", () => {
+  describe.only("/api/login", () => {
     describe("POST", () => {
       test("200: verifies user password when passwords match", () => {
-        const userPass = { username: "benny_andthejets", password: "password" };
+        const userPass = { username: "Benny_andthejets", password: "password" };
         return request(app)
           .post("/api/login")
           .send(userPass)

@@ -73,7 +73,9 @@ exports.insertUser = async ({
 exports.checkUser = async ({ username, password }) => {
   const {
     rows: [row],
-  } = await db.query("SELECT * FROM users WHERE username=$1;", [username]);
+  } = await db.query("SELECT * FROM users WHERE username ILIKE $1;", [
+    username,
+  ]);
 
   if (!row) return { verified: false, msg: "User Not Found" };
 

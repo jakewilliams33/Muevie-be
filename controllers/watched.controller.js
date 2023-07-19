@@ -32,7 +32,6 @@ exports.addWatchedByUserId = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === "23505") {
-        console.log("dick");
         res.status(200).send({});
       }
     });
