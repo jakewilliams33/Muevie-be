@@ -501,12 +501,12 @@ describe("Posts", () => {
             expect(res.body.msg).toBe("Invalid genre");
           });
       });
-      test("400: no posts under genre yet", () => {
+      test("200: returns empty array when no posts", () => {
         return request(app)
           .get("/api/posts?genre=Music")
-          .expect(400)
+          .expect(200)
           .then((res) => {
-            expect(res.body.msg).toBe("No posts under that genre yet!");
+            expect(res.body.posts).toEqual([]);
           });
       });
     });

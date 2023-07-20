@@ -43,8 +43,6 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
     return Promise.reject({ status: 400, msg: "Invalid limit" });
   }
 
-  if (genre) await checkExists("genres", "genre", genre.toLowerCase());
-
   const filterByGenre = genre
     ? format(
         `RIGHT JOIN (SELECT * FROM genres WHERE genre ILIKE '%s') g
