@@ -193,7 +193,7 @@ describe("Register/Login", () => {
       });
     });
   });
-  describe.only("/api/login", () => {
+  describe("/api/login", () => {
     describe("POST", () => {
       test("200: verifies user password when passwords match", () => {
         const userPass = { username: "Benny_andthejets", password: "password" };
@@ -425,7 +425,7 @@ describe("Posts", () => {
       });
       test("200: returns array of post objects filtered by genre", () => {
         return request(app)
-          .get("/api/posts?limit=10&page=1&genre=action")
+          .get("/api/posts?limit=10&page=1&genre=Action")
           .expect(200)
           .then((res) => {
             expect(res.body.posts.length).toBe(3);
@@ -503,7 +503,7 @@ describe("Posts", () => {
       });
       test("400: no posts under genre yet", () => {
         return request(app)
-          .get("/api/posts?genre=sport")
+          .get("/api/posts?genre=Music")
           .expect(400)
           .then((res) => {
             expect(res.body.msg).toBe("No posts under that genre yet!");

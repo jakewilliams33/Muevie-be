@@ -38,7 +38,7 @@ module.exports = [
   },
   {
     post: 4,
-    genre: "sci-fi",
+    genre: "Science Fiction",
   },
   {
     post: 5,

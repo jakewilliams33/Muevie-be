@@ -32,7 +32,7 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
 
   page = (page - 1) * limit;
 
-  if (genre && !validGenres.includes(genre)) {
+  if (genre && !validGenres.includes(genre.toLowerCase())) {
     return Promise.reject({
       status: 400,
       msg: "Invalid genre",
@@ -43,11 +43,11 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
     return Promise.reject({ status: 400, msg: "Invalid limit" });
   }
 
-  if (genre) await checkExists("genres", "genre", genre);
+  if (genre) await checkExists("genres", "genre", genre.toLowerCase());
 
   const filterByGenre = genre
     ? format(
-        `RIGHT JOIN (SELECT * FROM genres WHERE genre='%I') g
+        `RIGHT JOIN (SELECT * FROM genres WHERE genre ILIKE '%s') g
   ON b.post_id = g.post`,
         genre
       )
