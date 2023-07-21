@@ -4,35 +4,70 @@ const { checkExists } = require("../db/seeds/utils");
 
 exports.selectPosts = async (user_id, genre, limit, page) => {
   const validGenres = [
-    "action",
-    "adventure",
-    "animation",
-    "biography",
-    "comedy",
-    "crime",
-    "documentary",
-    "drama",
-    "family",
-    "fantasy",
-    "film Noir",
-    "history",
-    "horror",
-    "music",
-    "musical",
-    "mystery",
-    "romance",
-    "sci-fi",
-    "short film",
-    "sport",
-    "superhero",
-    "thriller",
-    "war",
-    "western",
+    "28",
+    "12",
+    "10759",
+    "16",
+    "35",
+    "80",
+    "99",
+    "18",
+    "10751",
+    "10762",
+    "14",
+    "9648",
+    "10763",
+    "10764",
+    "10765",
+    "10766",
+    "10767",
+    "10768",
+    "37",
+    "36",
+    "27",
+    "10402",
+    "9648",
+    "10749",
+    "878",
+    "53",
+    "10770",
+    "10752",
   ];
+
+  const genres = {
+    28: "action",
+    12: "adventure",
+    10759: "action & adventure",
+    16: "animation",
+    35: "comedy",
+    80: "crime",
+    99: "documentary",
+    18: "drama",
+    10751: "family",
+    10762: "kids",
+    14: "fantasy",
+    9648: "mystery",
+    10763: "news",
+    10764: "reality",
+    10765: "sci-fi & fantasy",
+    10766: "soap",
+    10767: "talk",
+    10768: "war & politics",
+    37: "western",
+    36: "history",
+    27: "horror",
+    10402: "music",
+    9648: "mystery",
+    10749: "romance",
+    878: "science fiction",
+    53: "thriller",
+    10770: "tv movie",
+    10752: "war",
+  };
 
   page = (page - 1) * limit;
 
-  if (genre && !validGenres.includes(genre.toLowerCase())) {
+  if (genre && !validGenres.includes(genre)) {
     return Promise.reject({
       status: 400,
       msg: "Invalid genre",
@@ -45,7 +80,7 @@ exports.selectPosts = async (user_id, genre, limit, page) => {
 
   const filterByGenre = genre
     ? format(
-        `RIGHT JOIN (SELECT * FROM genres WHERE genre ILIKE '%s') g
+        `RIGHT JOIN (SELECT * FROM genres WHERE genre_id=%L) g
   ON b.post_id = g.post`,
         genre
       )
@@ -167,7 +202,7 @@ exports.selectPostById = async (post_id) => {
     )
   ).rows;
 
-  row.genres = genres.map((val) => val.genre);
+  row.genres = genres.map((val) => val.genre_id);
 
   return row;
 };

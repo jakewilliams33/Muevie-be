@@ -106,7 +106,7 @@ const seed = async ({
 
   await db.query(`CREATE TABLE genres (
         post INT NOT NULL REFERENCES posts(post_id) ON DELETE CASCADE,
-        genre VARCHAR
+        genre_id INT NOT NULL
         )`);
 
   const userQueryStr = format(
@@ -206,8 +206,8 @@ const seed = async ({
   );
 
   const genresQueryStr = format(
-    "INSERT INTO genres ( post, genre) VALUES %L RETURNING *;",
-    genresData.map(({ post, genre }) => [post, genre])
+    "INSERT INTO genres ( post, genre_id) VALUES %L RETURNING *;",
+    genresData.map(({ post, genre_id }) => [post, genre_id])
   );
 
   await db.query(userQueryStr).then((result) => result.rows);

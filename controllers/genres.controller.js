@@ -14,10 +14,10 @@ exports.getGenresById = (req, res) => {
 
 exports.addGenresById = (req, res) => {
   const { post_id } = req.params;
-  const { genres } = req.body;
+  const { genre } = req.body;
 
-  insertGenresById(post_id, genres).then((postGenres) => {
-    res.status(201).send({ postGenres });
+  insertGenresById(post_id, genre).then((genreObj) => {
+    res.status(201).send({ genreObj });
   });
 };
 

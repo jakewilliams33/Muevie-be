@@ -425,7 +425,7 @@ describe("Posts", () => {
       });
       test("200: returns array of post objects filtered by genre", () => {
         return request(app)
-          .get("/api/posts?limit=10&page=1&genre=Action")
+          .get("/api/posts?limit=10&page=1&genre=28")
           .expect(200)
           .then((res) => {
             expect(res.body.posts.length).toBe(3);
@@ -503,7 +503,7 @@ describe("Posts", () => {
       });
       test("200: returns empty array when no posts", () => {
         return request(app)
-          .get("/api/posts?genre=Music")
+          .get("/api/posts?genre=10402")
           .expect(200)
           .then((res) => {
             expect(res.body.posts).toEqual([]);
@@ -586,7 +586,7 @@ describe("Posts", () => {
               movie_poster: "/px6v0kY4rmHOcBTA7zelfD196Sd.jpg",
               body: "very good, I cry.",
               comment_count: expect.any(Number),
-              genres: ["crime", "drama"],
+              genres: [80, 18],
               media_type: "movie",
             });
           });
@@ -1369,40 +1369,36 @@ describe("Genres", () => {
           .expect(200)
           .then((res) => {
             expect(res.body.postGenres).toEqual([
-              { genre: "crime" },
-              { genre: "drama" },
+              { genre_id: 80 },
+              { genre_id: 18 },
             ]);
           });
       });
     });
     describe("POST", () => {
       test("201: adds genres related to specified post and returns array of new genre objects", () => {
-        const sending = { genres: "Action, Crime" };
         return request(app)
           .post("/api/posts/1/genres")
-          .send(sending)
+          .send({ genre: 80 })
           .expect(201)
           .then((res) => {
-            expect(res.body.postGenres).toEqual([
-              { post: 1, genre: "action" },
-              { post: 1, genre: "crime" },
-            ]);
+            expect(res.body.genreObj).toEqual({ post: 1, genre_id: 80 });
           });
       });
       test("201: works with single genre", () => {
-        const sending = { genres: "Action" };
+        const sending = { genre: 80 };
         return request(app)
           .post("/api/posts/1/genres")
           .send(sending)
           .expect(201)
           .then((res) => {
-            expect(res.body.postGenres).toEqual([{ post: 1, genre: "action" }]);
+            expect(res.body.genreObj).toEqual({ post: 1, genre_id: 80 });
           });
       });
     });
     describe("DELETE", () => {
       test("204: removes genre", () => {
-        const sending = { genre: "action" };
+        const sending = { genre: 28 };
         return request(app)
           .delete("/api/posts/1/genres")
           .send(sending)
